@@ -2,32 +2,29 @@ public class Coordenada
 {
   private int linha, coluna;
 
-
-  public Coordenada(int l, int c)
+  public Coordenada(int l, int c) throws Exception
   {
 	  if(l<0 && c<0)
-	  {
-		  throw Exception ("Coordenadas inválidas");
-	  }
+		  throw new Exception("Coordenadas inválidas");
+
 	  else
 	  {
 		  if(l<0)
-		  	 throw Exception ("Linha inválida");
-
+		  	 throw new Exception("Linha inválida");
 		  if(c<0)
-	         throw Exception ("Coluna inválida");
-
+	         throw new Exception("Coluna inválida");
 	  }
 
 	  this.linha = l;
 	  this.coluna = c;
   }
-  public void getLinha ()
+
+  public int getLinha()
   {
 	  return this.linha;
   }
 
-  public void getColuna ()
+  public int getColuna()
   {
 	  return this.coluna;
   }
@@ -36,6 +33,7 @@ public class Coordenada
   {
 	  return "(" + this.linha + "," + this.coluna + ")";
   }
+
   public boolean equals (Object obj)
   {
 	  if (this == obj)
@@ -62,12 +60,9 @@ public class Coordenada
   {
 	  int ret = 1;
 
-	  ret = ret * 2 + new Integer (this.linha ).hashCode();
-	  ret = ret * 2 + new Integer (this.coluna).hashCode();
+	  ret = ret * 2 + new Integer(this.linha ).hashCode();
+	  ret = ret * 2 + new Integer(this.coluna).hashCode();
 
 	  return ret;
   }
-
-
-
 }

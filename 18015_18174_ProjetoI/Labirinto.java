@@ -18,16 +18,22 @@ public class Labirinto
 
 			char[][] matriz = new char[linhas][colunas];
 			Pilha<Coordenada> caminho = new Pilha<Coordenada>(colunas * linhas);
-			Pilha<Fila<Coordenada>> possibilidades = Pilha<Fila<Coordenada>>(colunas * linhas);
+			Pilha<Fila<Coordenada>> possibilidades = new Pilha<Fila<Coordenada>>(colunas * linhas);
 			Fila<Coordenada> fila = new Fila<Coordenada>(3);
-			Coordenada atual;
+			Coordenada atual = null;
+
 			for (int l = 0; l < linhas; l++)
+			{
+				String linha = arq.readLine();
 				for (int c = 0; c < colunas; c++)
-					if (matriz[l][c] == 'E')
-					{
+				{
+					char valoratual = linha.charAt(c);
+					matriz[l][c] = valoratual;
+					if (valoratual == 'E')
 						atual = new Coordenada(l,c);
-						break;
-					}
+				}
+			}
+			System.out.println("Começo do labirinto: " + atual.toString());
 
 		}
 		catch (Exception erro)
