@@ -29,7 +29,7 @@
             "name": "Debug (Attach)",
             "request": "attach",
             "hostName": "localhost",
-            "port": 1
+            "port": 5858
         }
     ]
 }

@@ -9,32 +9,65 @@ public class Labirinto
 	{
 		try
 		{
-
 			FileReader fr_arq = new FileReader("teste1.txt");
 			BufferedReader arq = new BufferedReader(fr_arq);
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
-			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas);
-
+			//System.out.println("Linhas: " + linhas + "\nColunas: " + colunas);
 			char[][] matriz = new char[linhas][colunas];
 			Pilha<Coordenada> caminho = new Pilha<Coordenada>(colunas * linhas);
 			Pilha<Fila<Coordenada>> possibilidades = new Pilha<Fila<Coordenada>>(colunas * linhas);
-			Fila<Coordenada> fila = new Fila<Coordenada>(3);
 			Coordenada atual = null;
-
-			for (int l = 0; l < linhas; l++)
+			
+			//leitura do arquivo texto, atribuição dos valores da matriz
+			for (int l = 0; l < linhas; l++) 
 			{
 				String linha = arq.readLine();
 				for (int c = 0; c < colunas; c++)
 				{
 					char valoratual = linha.charAt(c);
 					matriz[l][c] = valoratual;
-					if (valoratual == 'E')
-						atual = new Coordenada(l,c);
+					if (c==0 || l==0) //se é a borda do labirinto
+						if (valoratual == 'E')
+							atual = new Coordenada(l,c);
 				}
 			}
-			System.out.println("Começo do labirinto: " + atual.toString());			
-			arq.close();
+			arq.close();			
+			if (atual == null)
+				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
+			System.out.println("Começo do labirinto: " + atual.toString());
+			Fila<Coordenada> fila = new Fila<Coordenada>(3);
+			boolean acabou = false;
+
+			do
+			{
+				//colocar as coordenadas possíveis de movimento na fila
+				int cAtual = atual.getColuna();
+				int lAtual = atual.getLinha();
+				if (lAtual + 1 < linhas)          //para direita
+					if (matriz[lAtual + 1][cAtual] == ' ' || matriz[lAtual + 1][cAtual] == 'S')
+						fila.guarde(new Coordenada(lAtual + 1, cAtual));
+				if (lAtual - 1 >= 0)              //para esquerda
+					if (matriz[lAtual - 1][cAtual] == ' ' || matriz[lAtual - 1][cAtual] == 'S')
+						fila.guarde(new Coordenada(lAtual - 1, cAtual));
+				if (cAtual + 1 < colunas)         //para baixo
+					if (matriz[lAtual][cAtual + 1] == ' ' || matriz[lAtual][cAtual + 1] == 'S')
+						fila.guarde(new Coordenada(lAtual, cAtual + 1));
+				if (cAtual - 1 >= 0)         	  //para cima
+					if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
+						fila.guarde(new Coordenada(lAtual, cAtual - 1));
+				System.out.println(fila.toString());
+				if (!fila.isVazia())
+				{
+
+				}
+				else
+				{
+
+				}
+				acabou = true;
+			}
+			while(!acabou);
 		}
 		catch (Exception erro)
 		{
