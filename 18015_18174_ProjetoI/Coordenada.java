@@ -5,14 +5,14 @@ public class Coordenada
   public Coordenada(int l, int c) throws Exception
   {
 	  if(l<0 && c<0)
-		  throw new Exception("Coordenadas inválidas");
+		  throw new Exception("Coordenadas invÃ¡lidas");
 
 	  else
 	  {
 		  if(l<0)
-		  	 throw new Exception("Linha inválida");
+		  	 throw new Exception("Linha invÃ¡lida");
 		  if(c<0)
-	         throw new Exception("Coluna inválida");
+	         throw new Exception("Coluna invÃ¡lida");
 	  }
 
 	  this.linha = l;

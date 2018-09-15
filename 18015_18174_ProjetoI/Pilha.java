@@ -9,7 +9,7 @@ public class Pilha<X> implements Cloneable
     public Pilha (int capacidade) throws Exception
     {
         if (capacidade<0)
-            throw new Exception ("Capacidade invalida");
+            throw new Exception ("Capacidade inv√°lida");
 
         this.vetor = new Object [capacidade];
     }
@@ -24,7 +24,7 @@ public class Pilha<X> implements Cloneable
         }
         catch (NegativeArraySizeException erro)
         {
-            throw new Exception ("Capacidade invalida");
+            throw new Exception ("Capacidade inv√°lida");
         }
     }
     */
@@ -33,9 +33,9 @@ public class Pilha<X> implements Cloneable
 		//fazer: return x.clone();
 		X ret = null;
 		try{
-		Class<?> classe = x.getClass(); //classe String È guardada dentro da vari·vel
-		Class<?>[] tiposDoParametroFormal; //par‚metro formal È declarado na hora de implementar um mÈtodo
-		tiposDoParametroFormal = null; //vetor nulo, porque clone n„o tem par‚metros
+		Class<?> classe = x.getClass(); //classe String √© guardada dentro da vari√°vel
+		Class<?>[] tiposDoParametroFormal; //par√¢metro formal √© declarado na hora de implementar um mÔøΩtodo
+		tiposDoParametroFormal = null; //vetor nulo, porque clone n√£o tem par√¢metros
 		Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 		Object[] parametrosReais = null;
 		ret = (X)metodo.invoke(parametrosReais);

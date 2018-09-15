@@ -33,8 +33,8 @@ public class Labirinto
 						atual = new Coordenada(l,c);
 				}
 			}
-			System.out.println("Começo do labirinto: " + atual.toString());
-
+			System.out.println("ComeÃ§o do labirinto: " + atual.toString());			
+			arq.close();
 		}
 		catch (Exception erro)
 		{

@@ -5,10 +5,10 @@ public class Fila<Classe> implements Cloneable
 	private Object[] vet;
 	private int qtd = 0;
 
-	public Fila(int capacidade) throws Exception   //N„o se deve colocar "<>" em cabeÁalhos de mÈtodos
+	public Fila(int capacidade) throws Exception   //N√£o se deve colocar "<>" em cabe√ßalhos de m√©todos
 	{
 		if(capacidade <= 0)
-			throw new Exception("Tamanho inv·lido");
+			throw new Exception("Tamanho invÔøΩlido");
 
 		this.vet = new Object[capacidade];
 	}
@@ -36,7 +36,7 @@ public class Fila<Classe> implements Cloneable
 			throw new Exception("Vetor cheio");
 
 		if(obj == null)
-			throw new Exception("Par‚metro È null");
+			throw new Exception("Par√¢metro √© null");
 
 		if(obj instanceof Cloneable)
 			this.vet[this.qtd] = meuCloneDeClasse(obj);
