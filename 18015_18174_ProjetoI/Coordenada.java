@@ -1,3 +1,5 @@
+import javax.net.ssl.ExtendedSSLSession;
+
 public class Coordenada
 {
   private int linha, coluna;
@@ -64,5 +66,24 @@ public class Coordenada
 	  ret = ret * 2 + new Integer(this.coluna).hashCode();
 
 	  return ret;
+  }
+
+  public int compareTo(Coordenada outra)
+  {
+	int ret = null;
+	if (this.linha > outra.linha)
+		ret = 1;
+	else
+		if(this.linha < outra.linha)
+			ret = -1;
+		else
+			if (this.coluna > outra.coluna)
+				ret = 1;
+			else 
+				if (this.coluna < outra.coluna)
+					ret = -1;
+				else
+					ret = 0;
+	return ret;
   }
 }
