@@ -1,109 +1,112 @@
 import java.lang.reflect.*;
 
-public class Fila<Classe> implements Cloneable
+public class Fila<X> implements Cloneable
+//vers„o com loop
 {
-	private Object[] vet;
-	private int qtd = 0;
+	private Object[] vetor;
+	private int qtd;
 
-	public Fila(int capacidade) throws Exception   //N√£o se deve colocar "<>" em cabe√ßalhos de m√©todos
+	private X meuCloneDeX(X x)
 	{
-		if(capacidade <= 0)
-			throw new Exception("Tamanho invÔøΩlido");
-
-		this.vet = new Object[capacidade];
-	}
-
-	private Classe meuCloneDeClasse(Classe classe)
-	{
-		Classe ret = null;
-		try
-		{
-			Class<?> x = classe.getClass();
-			Class<?>[] tipoDoParametroFormal = null;
-			Method metodo = x.getMethod("clone",tipoDoParametroFormal);
+		//fazer: return (X)x.clone();
+		X ret = null;
+		try{
+			Class<?> classe = x.getClass(); //classe String È guardada dentro da vari·vel
+			Class<?>[] tiposDoParametroFormal; //par‚metro formal È declarado na hora de implementar um mÈtodo
+			tiposDoParametroFormal = null; //vetor nulo, porque clone n„o tem par‚metros
+			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 			Object[] parametrosReais = null;
-			ret = (Classe)metodo.invoke(parametrosReais);
+			ret = (X)metodo.invoke(parametrosReais);
 		}
-		catch(Exception erro)
-		{}
-
+		catch(InvocationTargetException erro){}
+		catch(NoSuchMethodException erro2){}
+		catch(IllegalAccessException erro3){}
 		return ret;
 	}
 
-	public void guarde(Classe obj) throws Exception
+	public Fila (int capacidade) throws Exception
 	{
-		if(this.isCheia())
-			throw new Exception("Vetor cheio");
+		if (capacidade < 0)
+			throw new Exception("Capacidade inv·lida");
+		this.vetor = new Object[capacidade];
+		this.qtd = 0;
+	}
 
-		if(obj == null)
-			throw new Exception("Par√¢metro √© null");
+	public Fila (Fila modelo) throws Exception
+	{
+		if (modelo == null)
+			throw new Exception("Modelo ineXistente");
+		this.qtd = modelo.qtd;
+		this.vetor = new Object[modelo.vetor.length];
+		for (int i = 0; i < modelo.qtd; i++)
+			this.vetor[i] = modelo.vetor[i];
+	}
 
-		if(obj instanceof Cloneable)
-			this.vet[this.qtd] = meuCloneDeClasse(obj);
+	public void guarde(X h) throws Exception
+	{
+		if (h == null)
+			throw new Exception("Hor·rio inv·lido!");
+		if (this.isCheia())
+			throw new Exception("Fila cheia!");
+		if (h instanceof Cloneable)
+			this.vetor[qtd] = this.meuCloneDeX(h);
 		else
-			this.vet[this.qtd] = obj;
-
+			this.vetor[qtd] = h;
 		this.qtd++;
 	}
 
 	public void jogueForaUmItem() throws Exception
 	{
-		if(this.isVazia())
-			throw new Exception("Vetor vazio");
-
-		for(int i = 0; i < this.qtd - 1; i++)
-			this.vet[i] = this.vet[i + 1];
-
+		if (this.isVazia())
+			throw new Exception("Nada a ser jogado fora");
 		this.qtd--;
+		//this.vetor[qtd] = null;
+		for(int i = 0; i < this.qtd; i++)
+			this.vetor[i] = this.vetor[i+1];
+			//"passinho"
+			//o que est· alÈm do qtd È considerado lixo
 	}
 
-	public boolean isCheia()
+	public X getUmItem() throws Exception
 	{
-		if(this.qtd != this.vet.length)
-			return false;
-
-		return true;
+		if (this.isVazia())
+			throw new Exception("Nada a recuperar");
+		if (this.vetor[0] instanceof Cloneable)
+			return this.meuCloneDeX((X)this.vetor[0]);
+		else
+			return (X)this.vetor[0];
 	}
 
 	public boolean isVazia()
 	{
-		if(this.qtd != 0)
-			return false;
+		return this.qtd == 0;
+	}
 
-		return true;
+	public boolean isCheia()
+	{
+		return this.qtd == this.vetor.length;
 	}
 
 	public String toString()
 	{
-		if(this.isVazia())
-			return "Vazia";
-
-		String text = "";
-
-		for(int i = 0; i < this.qtd; i++)
-			text += this.vet[i] + " ";
-
-		return text;
+		if (this.isVazia())
+			return "Fila vazia";
+		return "Fila com " + this.qtd + " itens, sendo o primeiro: '" + this.vetor[0].toString() + "'.";
 	}
 
-	public boolean equals(Object outro)
+	public boolean equals(Object obj)
 	{
-		if(outro == null)
-			return false;
-
-		if(this == outro)
+		if (this == obj)
 			return true;
-
-		if(this.getClass() != outro.getClass())
+		if (obj == null)
 			return false;
-
-		Fila<Classe> out = (Fila<Classe>) outro;
-
-		if(this.qtd != out.qtd)
+		if (this.getClass() != obj.getClass())
+			return  false;
+		Fila<X> f = (Fila<X>)obj;
+		if (this.qtd != f.qtd)
 			return false;
-
-		for(int i = 0; i < this.qtd; i++)
-			if(!this.vet[i].equals(out.vet[i]))
+		for (int i = 0; i < this.qtd; i++)
+			if (this.vetor[i] != f.vetor[i])
 				return false;
 
 		return true;
@@ -111,39 +114,18 @@ public class Fila<Classe> implements Cloneable
 
 	public int hashCode()
 	{
-		int ret = 666;
-
+		int ret = 1;
 		ret = ret * 2 + new Integer(this.qtd).hashCode();
-
-		for(int i = 0; i < this.qtd; i++)
-			ret = ret * 3 + this.vet[i].hashCode();
-
+		for (int i = 0; i < this.qtd; i++)
+			ret = ret * 2 + this.vetor[i].hashCode();
 		return ret;
-	}
-
-	public Fila (Fila modelo) throws Exception
-	{
-		if(modelo == null)
-			throw new Exception("Modelo ausente");
-
-		this.qtd = modelo.qtd;
-
-		for(int i = 0; i < this.vet.length; i++)
-			this.vet[i] = modelo.vet[i];
 	}
 
 	public Object clone()
 	{
-		Fila<Classe> obj = null;
-
-		try
-		{
-			obj = new Fila<Classe>(this);
-		}
-		catch(Exception erro)
-		{
-		}
-
-		return obj;
+		Fila<X> ret = null;
+		try{ret = new Fila<X>(this);}
+		catch(Exception erro){}
+		return ret;
 	}
 }

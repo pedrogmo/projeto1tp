@@ -58,12 +58,14 @@ public class Labirinto
 						fila.guarde(new Coordenada(lAtual, cAtual - 1));
 				System.out.println(fila.toString());
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
-				{
-					matriz[atual.getLinha()][atual.getColuna()] = '*'; //dar passo
+				{					
 					atual = fila.getUmItem();
-					fila.jogueForaUmItem();					
+					matriz[atual.getLinha()][atual.getColuna()] = '*'; //dar passo
+					fila.jogueForaUmItem();
 					caminho.guarde(atual);
-					possibilidades.guarde(fila);
+					possibilidades.guarde(fila);					
+					System.out.println("Deu passo");
+					acabou = true;
 				}
 				else //não há lugar para ir, modo regressivo
 				{

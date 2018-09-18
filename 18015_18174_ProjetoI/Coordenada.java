@@ -1,3 +1,4 @@
+
 import javax.net.ssl.ExtendedSSLSession;
 
 public class Coordenada
