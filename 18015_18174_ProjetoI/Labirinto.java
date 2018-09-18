@@ -59,15 +59,15 @@ public class Labirinto
 				System.out.println(fila.toString());
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
 				{
-					atual = fila.getUmItem();
-					fila.jogueForaUmItem();
 					matriz[atual.getLinha()][atual.getColuna()] = '*'; //dar passo
+					atual = fila.getUmItem();
+					fila.jogueForaUmItem();					
 					caminho.guarde(atual);
 					possibilidades.guarde(fila);
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-
+					
 				}
 				acabou = true;
 			}
