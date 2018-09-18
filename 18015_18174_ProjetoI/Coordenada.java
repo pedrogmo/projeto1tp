@@ -71,7 +71,7 @@ public class Coordenada
 
   public int compareTo(Coordenada outra)
   {
-	int ret = null;
+	int ret = 0;
 	if (this.linha > outra.linha)
 		ret = 1;
 	else
@@ -80,7 +80,7 @@ public class Coordenada
 		else
 			if (this.coluna > outra.coluna)
 				ret = 1;
-			else 
+			else
 				if (this.coluna < outra.coluna)
 					ret = -1;
 				else
