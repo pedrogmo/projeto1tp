@@ -35,7 +35,7 @@ public class Fila<X> implements Cloneable
 	public Fila (Fila modelo) throws Exception
 	{
 		if (modelo == null)
-			throw new Exception("Modelo ineXistente");
+			throw new Exception("Modelo inexistente");
 		this.qtd = modelo.qtd;
 		this.vetor = new Object[modelo.vetor.length];
 		for (int i = 0; i < modelo.qtd; i++)

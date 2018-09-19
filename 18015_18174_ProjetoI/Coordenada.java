@@ -1,6 +1,3 @@
-
-import javax.net.ssl.ExtendedSSLSession;
-
 public class Coordenada
 {
   private int linha, coluna;

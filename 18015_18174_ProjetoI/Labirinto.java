@@ -2,7 +2,6 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Labirinto
 {
@@ -67,18 +66,21 @@ public class Labirinto
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
 				{
 					atual = fila.getUmItem();
+					System.out.println("1");
 					matriz[atual.getLinha()][atual.getColuna()] = '*'; //dar passo
+					System.out.println("2");
 					fila.jogueForaUmItem();
+					System.out.println("3");
 					caminho.guarde(atual);
+					System.out.println("4");
 					possibilidades.guarde(fila);
 					System.out.println("Deu passo");
 					acabou = true;
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-
+					acabou = true;
 				}
-				acabou = true;
 			}
 			while(!acabou);
 		}

@@ -30,28 +30,26 @@ public class Pilha<X> implements Cloneable
     */
 	private X meuCloneDeX(X x)
 	{
-		//fazer: return x.clone();
+		//fazer: return (X)x.clone();
 		X ret = null;
 		try{
-		Class<?> classe = x.getClass(); //classe String é guardada dentro da variável
-		Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um m�todo
-		tiposDoParametroFormal = null; //vetor nulo, porque clone não tem parâmetros
-		Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
-		Object[] parametrosReais = null;
-		ret = (X)metodo.invoke(parametrosReais);
+			Class<?> classe = x.getClass(); //classe String é guardada dentro da variável
+			Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um método
+			tiposDoParametroFormal = null; //vetor nulo, porque clone não tem parâmetros
+			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
+			Object[] parametrosReais = null;
+			ret = (X)metodo.invoke(parametrosReais);
 		}
-
 		catch(InvocationTargetException erro){}
 		catch(NoSuchMethodException erro2){}
 		catch(IllegalAccessException erro3){}
-
 		return ret;
 	}
 
     public void guarde (X s) throws Exception
     {
 		if (s==null)
-				throw new Exception ("Informacao ausente");
+			throw new Exception ("Informacao ausente");
 
 		if (this.isCheia())
 				throw new Exception ("Pilha cheia");
