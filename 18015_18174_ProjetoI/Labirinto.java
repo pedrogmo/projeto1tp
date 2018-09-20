@@ -10,7 +10,7 @@ public class Labirinto
 		try
 		{
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
-			System.out.print("Digite o nome do arquivo a ser lido e sua extensão .txt: ");
+			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
 			String localArquivo = teclado.readLine();
 			FileReader fr_arq = new FileReader(localArquivo);
 			BufferedReader arq = new BufferedReader(fr_arq);
@@ -65,17 +65,16 @@ public class Labirinto
 						fila.guarde(new Coordenada(lAtual, cAtual - 1));
 				System.out.println(fila.toString());
 
-
-
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
 				{
+					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
 					int lPasso = atual.getLinha();
 					int cPasso = atual.getColuna();
 					if (matriz[lPasso][cPasso] == 'S')
 					{
 						acabou = true;
-						System.out.println("Labirinto resolvido, a saída está em " + atual.toString());
+						System.out.println("Labirinto resolvido, a saida esta em " + atual.toString());
 					}
 					else
 					{
@@ -84,10 +83,17 @@ public class Labirinto
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
 					}
+					//printa matriz a cada repetição
+					for(int l = 0; l < linhas; l++)
+					{
+						for(int c = 0; c < colunas; c++)
+							System.out.print(matriz[l][c]);
+						System.out.println();
+					}
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-
+					System.out.println("Modo regressivo");
 				}
 			}
 			while(!acabou);
