@@ -16,7 +16,7 @@ public class Fila<X> implements Cloneable
 			tiposDoParametroFormal = null; //vetor nulo, porque clone não tem parâmetros
 			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 			Object[] parametrosReais = null;
-			ret = (X)metodo.invoke(parametrosReais);
+			ret = (X)metodo.invoke(x, parametrosReais);
 		}
 		catch(InvocationTargetException erro){}
 		catch(NoSuchMethodException erro2){}
