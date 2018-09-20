@@ -43,10 +43,11 @@ public class Labirinto
 				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Começo do labirinto: " + atual.toString());
 			boolean acabou = false;
+			Fila<Coordenada> fila;
 
 			do
 			{
-				Fila<Coordenada> fila = new Fila<Coordenada>(3);
+				fila = new Fila<Coordenada>(3);
 				//colocar as coordenadas possíveis de movimento na fila
 				int cAtual = atual.getColuna();
 				int lAtual = atual.getLinha();
@@ -63,23 +64,30 @@ public class Labirinto
 					if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
 						fila.guarde(new Coordenada(lAtual, cAtual - 1));
 				System.out.println(fila.toString());
+
+
+
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
 				{
 					atual = fila.getUmItem();
-					System.out.println("1");
-					matriz[atual.getLinha()][atual.getColuna()] = '*'; //dar passo
-					System.out.println("2");
-					fila.jogueForaUmItem();
-					System.out.println("3");
-					caminho.guarde(atual);
-					System.out.println("4");
-					possibilidades.guarde(fila);
-					System.out.println("Deu passo");
-					acabou = true;
+					int lPasso = atual.getLinha();
+					int cPasso = atual.getColuna();
+					if (matriz[lPasso][cPasso] == 'S')
+					{
+						acabou = true;
+						System.out.println("Labirinto resolvido, a saída está em " + atual.toString());
+					}
+					else
+					{
+						matriz[lPasso][cPasso] = '*'; //dar passo
+						fila.jogueForaUmItem();
+						caminho.guarde(atual);
+						possibilidades.guarde(fila);
+					}
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-					acabou = true;
+
 				}
 			}
 			while(!acabou);
