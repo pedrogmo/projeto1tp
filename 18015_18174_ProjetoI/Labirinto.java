@@ -21,7 +21,6 @@ public class Labirinto
 			Pilha<Coordenada> caminho = new Pilha<Coordenada>(colunas * linhas);
 			Pilha<Fila<Coordenada>> possibilidades = new Pilha<Fila<Coordenada>>(colunas * linhas);
 			Coordenada atual = null;
-
 			//leitura do arquivo texto, atribuição dos valores da matriz
 			for (int l = 0; l < linhas; l++)
 			{
@@ -76,14 +75,14 @@ public class Labirinto
 						acabou = true;
 						System.out.println("Labirinto resolvido, a saida esta em " + atual.toString());
 					}
-					else
+					else //não é o fim, é só um espaçoem branco. Tem que dar passo
 					{
 						matriz[lPasso][cPasso] = '*'; //dar passo
 						fila.jogueForaUmItem();
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
 					}
-					//printa matriz a cada repetição
+					//printa matriz a cada repetição, para visualização
 					for(int l = 0; l < linhas; l++)
 					{
 						for(int c = 0; c < colunas; c++)
@@ -93,7 +92,34 @@ public class Labirinto
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-					System.out.println("Modo regressivo");
+					boolean sairRegressivo = false;
+					matriz[atual.getLinha()][atual.getColuna()] = ' ';
+					do
+					{
+						System.out.println("Modo regressivo");						
+						atual = caminho.getUmItem();
+						matriz[atual.getLinha()][atual.getColuna()] = ' ';
+						caminho.jogueForaUmItem();
+						Fila anterior = possibilidades.getUmItem();
+						possibilidades.jogueForaUmItem();
+						if (!anterior.isVazia()) //fila anterior recuperada tem coordenadass para ir
+						{
+							atual = (Coordenada) anterior.getUmItem();
+							caminho.guarde(atual);
+							possibilidades.guarde(anterior);
+							matriz[atual.getLinha()][atual.getColuna()] = '*';
+							sairRegressivo = true;
+						}
+						else if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
+							throw new Exception("Não foi possível resolver o labirinto");
+						for(int l = 0; l < linhas; l++)
+						{
+							for(int c = 0; c < colunas; c++)
+								System.out.print(matriz[l][c]);
+							System.out.println();
+						}
+					}
+					while (!sairRegressivo);
 				}
 			}
 			while(!acabou);
