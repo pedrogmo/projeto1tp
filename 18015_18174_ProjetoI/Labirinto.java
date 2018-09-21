@@ -74,7 +74,7 @@ public class Labirinto
 					int cPasso = atual.getColuna();
 					if (matriz[lPasso][cPasso] == 'S') //achou saída
 					{
-						System.out.println("Labirinto resolvido.");
+						System.out.println("\n\nLabirinto resolvido.");
 						acabou = true;
 						Pilha<Coordenada> inverso = new Pilha<Coordenada>(colunas * linhas);
 						while (!caminho.isVazia())
