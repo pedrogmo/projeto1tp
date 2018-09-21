@@ -9,9 +9,10 @@ public class Labirinto
 	{
 		try
 		{
-			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
+			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
 			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
-			String localArquivo = teclado.readLine();
+			String localArquivo = teclado.readLine();*/
+			String localArquivo = "teste1.txt";
 			FileReader fr_arq = new FileReader(localArquivo);
 			BufferedReader arq = new BufferedReader(fr_arq);
 			int linhas = Integer.parseInt(arq.readLine().trim());
@@ -68,27 +69,35 @@ public class Labirinto
 				{
 					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
+					fila.jogueForaUmItem();
 					int lPasso = atual.getLinha();
 					int cPasso = atual.getColuna();
-					if (matriz[lPasso][cPasso] == 'S')
+					if (matriz[lPasso][cPasso] == 'S') //achou saída
 					{
+						System.out.println("Labirinto resolvido.");
 						acabou = true;
-						System.out.println("Labirinto resolvido, a saida esta em " + atual.toString());
+						Pilha<Coordenada> inverso = new Pilha<Coordenada>(colunas * linhas);
+						while (!caminho.isVazia())
+						{
+							inverso.guarde(caminho.getUmItem());
+							caminho.jogueForaUmItem();						
+						}
+						System.out.print("Caminho: ");
+						while(!inverso.isVazia())
+						{
+							System.out.print(inverso.getUmItem() + " ");
+							inverso.jogueForaUmItem();
+						}
+						System.out.println("\nSaida: " + atual.toString());
 					}
-					else //não é o fim, é só um espaçoem branco. Tem que dar passo
+					else //não é o fim, é só um espaço em branco. Tem que dar passo
 					{
 						matriz[lPasso][cPasso] = '*'; //dar passo
-						fila.jogueForaUmItem();
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
-					}
-					//printa matriz a cada repetição, para visualização
-					for(int l = 0; l < linhas; l++)
-					{
-						for(int c = 0; c < colunas; c++)
-							System.out.print(matriz[l][c]);
-						System.out.println();
-					}
+						printaMatriz(matriz, linhas, colunas);
+						//printa matriz a cada repetição, para visualização
+					}			
 				}
 				else //não há lugar para ir, modo regressivo
 				{
@@ -112,12 +121,7 @@ public class Labirinto
 						}
 						else if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
 							throw new Exception("Não foi possível resolver o labirinto");
-						for(int l = 0; l < linhas; l++)
-						{
-							for(int c = 0; c < colunas; c++)
-								System.out.print(matriz[l][c]);
-							System.out.println();
-						}
+						printaMatriz(matriz, linhas, colunas);
 					}
 					while (!sairRegressivo);
 				}
@@ -127,6 +131,16 @@ public class Labirinto
 		catch (Exception erro)
 		{
 			System.err.println(erro.getMessage());
+		}
+	}
+
+	private static void printaMatriz(char[][] m, int maxl, int maxc)
+	{
+		for(int l = 0; l < maxl; l++)
+		{
+			for(int c = 0; c < maxc; c++)
+				System.out.print(m[l][c]);
+			System.out.println();
 		}
 	}
 }
