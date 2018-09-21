@@ -51,15 +51,15 @@ public class Labirinto
 				//colocar as coordenadas possíveis de movimento na fila
 				int cAtual = atual.getColuna();
 				int lAtual = atual.getLinha();
+				if (cAtual + 1 < colunas)         //para direita
+					if (matriz[lAtual][cAtual + 1] == ' ' || matriz[lAtual][cAtual + 1] == 'S')
+						fila.guarde(new Coordenada(lAtual, cAtual + 1));
 				if (lAtual + 1 < linhas)          //para baixo
 					if (matriz[lAtual + 1][cAtual] == ' ' || matriz[lAtual + 1][cAtual] == 'S')
 						fila.guarde(new Coordenada(lAtual + 1, cAtual));
 				if (lAtual - 1 >= 0)              //para cima
 					if (matriz[lAtual - 1][cAtual] == ' ' || matriz[lAtual - 1][cAtual] == 'S')
-						fila.guarde(new Coordenada(lAtual - 1, cAtual));
-				if (cAtual + 1 < colunas)         //para direita
-					if (matriz[lAtual][cAtual + 1] == ' ' || matriz[lAtual][cAtual + 1] == 'S')
-						fila.guarde(new Coordenada(lAtual, cAtual + 1));
+						fila.guarde(new Coordenada(lAtual - 1, cAtual));				
 				if (cAtual - 1 >= 0)         	  //para esquerda
 					if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
 						fila.guarde(new Coordenada(lAtual, cAtual - 1));
