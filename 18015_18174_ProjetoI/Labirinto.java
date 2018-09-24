@@ -40,9 +40,10 @@ public class Labirinto
 			if (atual == null)
 				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Comeco do labirinto: " + atual.toString());
-			
+
 			Fila<Coordenada> fila;
 			boolean acabou = false;
+			boolean passouRegressivo = false;
 			do
 			{
 				fila = new Fila<Coordenada>(3);
@@ -57,13 +58,38 @@ public class Labirinto
 						fila.guarde(new Coordenada(lAtual + 1, cAtual));
 				if (lAtual - 1 >= 0)              //para cima
 					if (matriz[lAtual - 1][cAtual] == ' ' || matriz[lAtual - 1][cAtual] == 'S')
-						fila.guarde(new Coordenada(lAtual - 1, cAtual));				
+						fila.guarde(new Coordenada(lAtual - 1, cAtual));
 				if (cAtual - 1 >= 0)         	  //para esquerda
 					if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
 						fila.guarde(new Coordenada(lAtual, cAtual - 1));
 
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
 				{
+					if (passouRegressivo)
+					{
+						if (matriz[lPasso][cPasso] == 'S') //achou saída
+											{
+												System.out.println("\n\nLabirinto resolvido.");
+												acabou = true;
+												Pilha<Coordenada> inverso = new Pilha<Coordenada>(colunas * linhas);
+												while (!caminho.isVazia())
+												{
+													inverso.guarde(caminho.getUmItem());
+													caminho.jogueForaUmItem();
+												}
+												System.out.print("Caminho: ");
+												while(!inverso.isVazia())
+												{
+													System.out.print(inverso.getUmItem() + " ");
+													inverso.jogueForaUmItem();
+												}
+												System.out.println("\nSaida: " + atual.toString());
+					}
+					else
+					{
+						matriz[atual.getLinha()][atual.getColuna()] = '*';
+					}
+					}
 					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
 					fila.jogueForaUmItem();
@@ -77,7 +103,7 @@ public class Labirinto
 						while (!caminho.isVazia())
 						{
 							inverso.guarde(caminho.getUmItem());
-							caminho.jogueForaUmItem();						
+							caminho.jogueForaUmItem();
 						}
 						System.out.print("Caminho: ");
 						while(!inverso.isVazia())
@@ -94,33 +120,36 @@ public class Labirinto
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
 						//printa matriz a cada repetição, para visualização
-					}			
+					}
 				}
 				else //não há lugar para ir, modo regressivo
 				{
 					boolean sairRegressivo = false;
 					do
 					{
-						System.out.println("\nModo regressivo");						
+						passouRegressivo = true;
+						System.out.println("\nModo regressivo");
 						atual = caminho.getUmItem(); //desempilha um item de caminho
 						caminho.jogueForaUmItem();
 						matriz[atual.getLinha()][atual.getColuna()] = ' ';
-						printaMatriz(matriz, linhas, colunas);				
+						printaMatriz(matriz, linhas, colunas);
 						fila = possibilidades.getUmItem(); //desempilha fila de possibilidades
-						possibilidades.jogueForaUmItem();						
+						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
 						{
-							//volta para modo progressivo
+							/*volta para modo progressivo
 							System.out.println("\nModo progressivo");
 							atual = (Coordenada) fila.getUmItem();
 							caminho.guarde(atual);
 							possibilidades.guarde(fila);
 							matriz[atual.getLinha()][atual.getColuna()] = '*';
-							printaMatriz(matriz, linhas, colunas);
+							printaMatriz(matriz, linhas, colunas);*/
+							atual = (Coordenada) fila.getUmItem();
+
 							sairRegressivo = true;
 						}
 						if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
-							throw new Exception("Não foi possível resolver o labirinto");						
+							throw new Exception("Não foi possível resolver o labirinto");
 					}
 					while (!sairRegressivo);
 				}
@@ -133,7 +162,7 @@ public class Labirinto
 		}
 	}
 
-	private static void printaMatriz(char[][] m, int maxl, int maxc)
+	protected static void printaMatriz(char[][] m, int maxl, int maxc)
 	{
 		for(int l = 0; l < maxl; l++)
 		{

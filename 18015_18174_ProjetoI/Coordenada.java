@@ -1,6 +1,6 @@
 public class Coordenada
 {
-  private int linha, coluna;
+  protected int linha, coluna;
 
   public Coordenada(int l, int c) throws Exception
   {
