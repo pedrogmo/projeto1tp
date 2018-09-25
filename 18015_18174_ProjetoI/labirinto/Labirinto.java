@@ -70,9 +70,9 @@ public class Labirinto
 							fila.guarde(new Coordenada(lAtual, cAtual - 1));
 				}
 				else //passou regressivo
-					passouRegressivo = false; //voltou para modo prorgessivo
+					passouRegressivo = false; //voltou para modo progressivo
 				if (!fila.isVazia()) //há lugar para ir, modo progressivo
-				{					
+				{
 					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
 					fila.jogueForaUmItem();
@@ -120,7 +120,7 @@ public class Labirinto
 						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
 						{
-							passouRegressivo = true;						
+							passouRegressivo = true;
 							sairRegressivo = true;
 						}
 						if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
