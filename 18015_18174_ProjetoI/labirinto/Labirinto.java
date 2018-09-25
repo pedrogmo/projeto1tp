@@ -1,4 +1,4 @@
-import java.io.InputStreamReader;
+﻿import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -44,9 +44,12 @@ public class Labirinto
 				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Comeco do labirinto: " + atual.toString());
 
-			Fila<Coordenada> fila = null;
+			Fila<Coordenada> fila = null; //fila de coordenadas armazenadas e possivelmente tomadas
+			//três variáveis boolean para controle dos loops e dos desvios de código:
 			boolean acabou = false;
 			boolean passouRegressivo = false;
+			boolean sairRegressivo = false;
+
 			do
 			{
 				if (!passouRegressivo)
@@ -106,10 +109,11 @@ public class Labirinto
 				}
 				else //não há lugar para ir, modo regressivo
 				{
-					boolean sairRegressivo = false;
+					passouRegressivo = true;
+					sairRegressivo = false;
 					do
 					{
-						passouRegressivo = true;
+
 						System.out.println("\nModo regressivo");
 						atual = caminho.getUmItem(); //desempilha um item de caminho
 						caminho.jogueForaUmItem();
@@ -118,10 +122,7 @@ public class Labirinto
 						fila = possibilidades.getUmItem(); //desempilha fila de possibilidades
 						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
-						{
-							passouRegressivo = true;
 							sairRegressivo = true;
-						}
 						if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
 							throw new Exception("Não foi possível resolver o labirinto");
 					}
