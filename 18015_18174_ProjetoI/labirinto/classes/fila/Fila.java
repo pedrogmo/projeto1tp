@@ -30,9 +30,9 @@ public class Fila<X> implements Cloneable
 		//fazer: return (X)x.clone();
 		X ret = null;
 		try{
-			Class<?> classe = x.getClass(); //classe String � guardada dentro da vari�vel
-			Class<?>[] tiposDoParametroFormal; //par�metro formal � declarado na hora de implementar um m�todo
-			tiposDoParametroFormal = null; //vetor nulo, porque clone n�o tem par�metros
+			Class<?> classe = x.getClass(); //classe String é guardada dentro da vari�vel
+			Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um m�todo
+			tiposDoParametroFormal = null; //vetor nulo, porque clone n�o tem parâmetros
 			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 			Object[] parametrosReais = null;
 			ret = (X)metodo.invoke(x, parametrosReais);
@@ -74,7 +74,7 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Guarda um objeto da classe X no vetor, aumentando a variável de quantidade de itens armazenados.
+	* Guarda um objeto da classe X na última posição do vetor, aumentando a variável de quantidade de itens armazenados.
 	* @param o objeto da classe X a ser guardado.
     * @throws Exception se o item a ser guardado for nulo e se a Fila estiver cheia.
 	*/
@@ -91,6 +91,11 @@ public class Fila<X> implements Cloneable
 		this.qtd++;
 	}
 
+	/**
+	* Joga fora o item da primeira posição do vetor, reduzindo a quantidade de itens.
+	* Faz tudo que está na frente da primeira posição ir para trás, com um loop.
+	* @throws Exception se a fila está vazia, não haveria itens para serem jogados fora.
+	*/
 	public void jogueForaUmItem() throws Exception
 	{
 		if (this.isVazia())
@@ -100,9 +105,14 @@ public class Fila<X> implements Cloneable
 		for(int i = 0; i < this.qtd; i++)
 			this.vetor[i] = this.vetor[i+1];
 			//"passinho"
-			//o que est� al�m do qtd � considerado lixo
+			//o que está além do qtd é considerado lixo
 	}
 
+	/**
+	* Obtem um valor da classe X armazenado na primeira posição do vetor inteiro.
+	* @return valor da posição 0 do vetor.
+	* @throws Exception se a fila está vazia.
+	*/
 	public X getUmItem() throws Exception
 	{
 		if (this.isVazia())
@@ -113,16 +123,29 @@ public class Fila<X> implements Cloneable
 			return (X)this.vetor[0];
 	}
 
+	/**
+	* Verifica se a fila está vazia.
+	* @return true se a fila está vazia (quantidade de itens é 0), false caso contrário.
+	*/
 	public boolean isVazia()
 	{
 		return this.qtd == 0;
 	}
 
+	/**
+	* Verifica se a fila está cheia.
+	* @return true se a fila está cheia (quantidade de itens é igual ao tamanho), false caso contrário.
+	*/
 	public boolean isCheia()
 	{
 		return this.qtd == this.vetor.length;
 	}
 
+	/**
+    * Gera uma string com texto que representa a instância da fila.
+    * Retorna a quantidade de itens guardados e o primeiro item da fila.
+    * @return uma string com o conteúdo da fila.
+    */
 	public String toString()
 	{
 		if (this.isVazia())
@@ -130,6 +153,11 @@ public class Fila<X> implements Cloneable
 		return "Fila com " + this.qtd + " itens, sendo o primeiro: '" + this.vetor[0].toString() + "'.";
 	}
 
+	/**
+	* Verifica se a fila atual é igual ao objeto passado por parâmetro.
+	* Compara as classes do objeto, verifica a quantidade de itens dos dois e o vetor de dados.
+	* @return true se as filas forem iguais, false caso contrário.	
+	*/
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -148,6 +176,10 @@ public class Fila<X> implements Cloneable
 		return true;
 	}
 
+	/**
+	* Gera o código de espalhamento (código de hash) da instância atual de Fila, que chama o método.
+	* @return o código de espalhamento da fila que chama o método.
+	*/
 	public int hashCode()
 	{
 		int ret = 1;
@@ -157,6 +189,11 @@ public class Fila<X> implements Cloneable
 		return ret;
 	}
 
+	/**
+	* Clona e retorna a instância atual de fila. 
+	* Instancia uma nova fila com o construtor de cópia, passando como parâmetro a fila atual.
+	* @return o clone da fila que chama o método.
+	*/
 	public Object clone()
 	{
 		Fila<X> ret = null;
