@@ -1,19 +1,19 @@
 import java.lang.reflect.*;
 
 public class Fila<X> implements Cloneable
-//versão com loop
+//versÃ£o com loop
 {
-	private Object[] vetor;
-	private int qtd;
+	protected Object[] vetor;
+	protected int qtd;
 
-	private X meuCloneDeX(X x)
+	protected X meuCloneDeX(X x)
 	{
 		//fazer: return (X)x.clone();
 		X ret = null;
 		try{
-			Class<?> classe = x.getClass(); //classe String é guardada dentro da variável
-			Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um método
-			tiposDoParametroFormal = null; //vetor nulo, porque clone não tem parâmetros
+			Class<?> classe = x.getClass(); //classe String ï¿½ guardada dentro da variï¿½vel
+			Class<?>[] tiposDoParametroFormal; //parï¿½metro formal ï¿½ declarado na hora de implementar um mï¿½todo
+			tiposDoParametroFormal = null; //vetor nulo, porque clone nï¿½o tem parï¿½metros
 			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 			Object[] parametrosReais = null;
 			ret = (X)metodo.invoke(x, parametrosReais);
@@ -27,7 +27,7 @@ public class Fila<X> implements Cloneable
 	public Fila (int capacidade) throws Exception
 	{
 		if (capacidade < 0)
-			throw new Exception("Capacidade inválida");
+			throw new Exception("Capacidade invï¿½lida");
 		this.vetor = new Object[capacidade];
 		this.qtd = 0;
 	}
@@ -45,7 +45,7 @@ public class Fila<X> implements Cloneable
 	public void guarde(X h) throws Exception
 	{
 		if (h == null)
-			throw new Exception("Horário inválido!");
+			throw new Exception("Horï¿½rio invï¿½lido!");
 		if (this.isCheia())
 			throw new Exception("Fila cheia!");
 		if (h instanceof Cloneable)
@@ -64,7 +64,7 @@ public class Fila<X> implements Cloneable
 		for(int i = 0; i < this.qtd; i++)
 			this.vetor[i] = this.vetor[i+1];
 			//"passinho"
-			//o que está além do qtd é considerado lixo
+			//o que estï¿½ alï¿½m do qtd ï¿½ considerado lixo
 	}
 
 	public X getUmItem() throws Exception

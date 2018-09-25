@@ -2,6 +2,9 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import classes.Coordenada;
+import classes.Pilha;
+import classes.Fila;
 
 public class Labirinto
 {
@@ -9,9 +12,10 @@ public class Labirinto
 	{
 		try
 		{
-			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
+			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
 			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
-			String localArquivo = teclado.readLine();
+			String localArquivo = teclado.readLine();*/
+			String localArquivo = "teste1.txt";
 			FileReader fr_arq = new FileReader(localArquivo);
 			BufferedReader arq = new BufferedReader(fr_arq);
 			int linhas = Integer.parseInt(arq.readLine().trim());
@@ -41,55 +45,34 @@ public class Labirinto
 				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Comeco do labirinto: " + atual.toString());
 
-			Fila<Coordenada> fila;
+			Fila<Coordenada> fila = null;
 			boolean acabou = false;
 			boolean passouRegressivo = false;
 			do
 			{
-				fila = new Fila<Coordenada>(3);
-				//colocar as coordenadas possíveis de movimento na fila
-				int cAtual = atual.getColuna();
-				int lAtual = atual.getLinha();
-				if (cAtual + 1 < colunas)         //para direita
-					if (matriz[lAtual][cAtual + 1] == ' ' || matriz[lAtual][cAtual + 1] == 'S')
-						fila.guarde(new Coordenada(lAtual, cAtual + 1));
-				if (lAtual + 1 < linhas)          //para baixo
-					if (matriz[lAtual + 1][cAtual] == ' ' || matriz[lAtual + 1][cAtual] == 'S')
-						fila.guarde(new Coordenada(lAtual + 1, cAtual));
-				if (lAtual - 1 >= 0)              //para cima
-					if (matriz[lAtual - 1][cAtual] == ' ' || matriz[lAtual - 1][cAtual] == 'S')
-						fila.guarde(new Coordenada(lAtual - 1, cAtual));
-				if (cAtual - 1 >= 0)         	  //para esquerda
-					if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
-						fila.guarde(new Coordenada(lAtual, cAtual - 1));
-
-				if (!fila.isVazia()) //há lugar para ir, modo progressivo
+				if (!passouRegressivo)
 				{
-					if (passouRegressivo)
-					{
-						if (matriz[lPasso][cPasso] == 'S') //achou saída
-											{
-												System.out.println("\n\nLabirinto resolvido.");
-												acabou = true;
-												Pilha<Coordenada> inverso = new Pilha<Coordenada>(colunas * linhas);
-												while (!caminho.isVazia())
-												{
-													inverso.guarde(caminho.getUmItem());
-													caminho.jogueForaUmItem();
-												}
-												System.out.print("Caminho: ");
-												while(!inverso.isVazia())
-												{
-													System.out.print(inverso.getUmItem() + " ");
-													inverso.jogueForaUmItem();
-												}
-												System.out.println("\nSaida: " + atual.toString());
-					}
-					else
-					{
-						matriz[atual.getLinha()][atual.getColuna()] = '*';
-					}
-					}
+					fila = new Fila<Coordenada>(3);
+					//colocar as coordenadas possíveis de movimento na fila
+					int cAtual = atual.getColuna();
+					int lAtual = atual.getLinha();
+					if (cAtual + 1 < colunas)         //para direita
+						if (matriz[lAtual][cAtual + 1] == ' ' || matriz[lAtual][cAtual + 1] == 'S')
+							fila.guarde(new Coordenada(lAtual, cAtual + 1));
+					if (lAtual + 1 < linhas)          //para baixo
+						if (matriz[lAtual + 1][cAtual] == ' ' || matriz[lAtual + 1][cAtual] == 'S')
+							fila.guarde(new Coordenada(lAtual + 1, cAtual));
+					if (lAtual - 1 >= 0)              //para cima
+						if (matriz[lAtual - 1][cAtual] == ' ' || matriz[lAtual - 1][cAtual] == 'S')
+							fila.guarde(new Coordenada(lAtual - 1, cAtual));
+					if (cAtual - 1 >= 0)         	  //para esquerda
+						if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
+							fila.guarde(new Coordenada(lAtual, cAtual - 1));
+				}
+				else //passou regressivo
+					passouRegressivo = false; //voltou para modo prorgessivo
+				if (!fila.isVazia()) //há lugar para ir, modo progressivo
+				{					
 					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
 					fila.jogueForaUmItem();
@@ -137,15 +120,7 @@ public class Labirinto
 						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
 						{
-							/*volta para modo progressivo
-							System.out.println("\nModo progressivo");
-							atual = (Coordenada) fila.getUmItem();
-							caminho.guarde(atual);
-							possibilidades.guarde(fila);
-							matriz[atual.getLinha()][atual.getColuna()] = '*';
-							printaMatriz(matriz, linhas, colunas);*/
-							atual = (Coordenada) fila.getUmItem();
-
+							passouRegressivo = true;						
 							sairRegressivo = true;
 						}
 						if (possibilidades.isVazia()) //se se essgotaram asss possibilidades

@@ -2,8 +2,8 @@ import java.lang.reflect.*;
 
 public class Pilha<X> implements Cloneable
 {
-    private Object[] vetor;
-    private int qtd = 0;
+    protected Object[] vetor;
+    protected int qtd = 0;
 
     //versao preventiva
     public Pilha (int capacidade) throws Exception
@@ -28,7 +28,7 @@ public class Pilha<X> implements Cloneable
         }
     }
     */
-	private X meuCloneDeX(X x)
+	protected X meuCloneDeX(X x)
 	{
 		//fazer: return (X)x.clone();
 		X ret = null;
