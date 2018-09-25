@@ -1,8 +1,8 @@
-/**
+﻿/**
 A classe Coordenada representa uma simples coordenada com inteiros linha e coluna, que indicam a posição em uma matriz.
 Instâncias da classe não podem trocar os valores originalmente definidos como parâmetros do método construtor.
 Há getters que retornam linha e coluna.
-@author Pedro Gomes Moreira e Gustavo Meira.
+@author Pedro Gomes Moreira e Gustavo Henrique de Meira.
 @since 2018.
  */
 public class Coordenada

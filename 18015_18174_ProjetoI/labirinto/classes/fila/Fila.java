@@ -1,11 +1,30 @@
 import java.lang.reflect.*;
 
+/**
+* A classe Fila representa uma fila, que tem como base um vetor genérico interno e um inteiro indicador de quantidade de itens.
+* Instâncias da classe podem guardar, jogar fora e retornar itens armazenados, de uma classe qualquer, representada por "X".
+* Além disso, há métodos boolean que indicam se a fila está vazia e cheia.
+* @author Pedro Gomes Moreira e Gustavo Henrique de Meira.
+* @since 2018.
+*/
 public class Fila<X> implements Cloneable
-//versão com loop
 {
+	/**
+	* Vetor genérico que guarda objetos da classe X especificada na instanciação.
+	*/
 	protected Object[] vetor;
+
+	/**
+	* Inteiro que indica quantidade de itens armazenados, para manutenção do vetor.
+	*/
 	protected int qtd;
 
+	/**
+	* O método meuCloneDeX() é responsável por clonar um objeto do vetor para armazená-lo e retorná-lo, evitando conflitos de edereços de memória.
+	* O functionamento se baseia em guardar a classe dos parâmetros para o método "clone" da classe X ser invocado.
+	* @param objeto x a ser clonado.
+	* @return o clone do objeto x.
+	*/
 	protected X meuCloneDeX(X x)
 	{
 		//fazer: return (X)x.clone();
@@ -24,6 +43,12 @@ public class Fila<X> implements Cloneable
 		return ret;
 	}
 
+	/**
+	* Constrói uma instância da classe Fila.
+	* Para tanto, é passado como parâmetro o inteiro com a capacidade do vetor interno.
+	* @param a capacidade desejada para o vetor interno.
+	* @throws Exception se a capacidade especificada for negativa.
+	*/
 	public Fila (int capacidade) throws Exception
 	{
 		if (capacidade < 0)
@@ -32,6 +57,12 @@ public class Fila<X> implements Cloneable
 		this.qtd = 0;
 	}
 
+	/**
+	* Constrói uma cópia da instância de Fila especificada.
+	* Para tanto, é passada como parâmetro a Fila de modelo a ser copiada.
+	* @param o modelo de Fila.
+	* @throws Exception se o modelo passado for nulo.
+	*/
 	public Fila (Fila modelo) throws Exception
 	{
 		if (modelo == null)
@@ -42,6 +73,11 @@ public class Fila<X> implements Cloneable
 			this.vetor[i] = modelo.vetor[i];
 	}
 
+	/**
+	* Guarda um objeto da classe X no vetor, aumentando a variável de quantidade de itens armazenados.
+	* @param o objeto da classe X a ser guardado.
+    * @throws Exception se o item a ser guardado for nulo e se a Fila estiver cheia.
+	*/
 	public void guarde(X h) throws Exception
 	{
 		if (h == null)
