@@ -1,3 +1,4 @@
+package classes.fila;
 import java.lang.reflect.*;
 
 /**
@@ -156,7 +157,7 @@ public class Fila<X> implements Cloneable
 	/**
 	* Verifica se a fila atual é igual ao objeto passado por parâmetro.
 	* Compara as classes do objeto, verifica a quantidade de itens dos dois e o vetor de dados.
-	* @return true se as filas forem iguais, false caso contrário.	
+	* @return true se as filas forem iguais, false caso contrário.
 	*/
 	public boolean equals(Object obj)
 	{
@@ -190,7 +191,7 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Clona e retorna a instância atual de fila. 
+	* Clona e retorna a instância atual de fila.
 	* Instancia uma nova fila com o construtor de cópia, passando como parâmetro a fila atual.
 	* @return o clone da fila que chama o método.
 	*/

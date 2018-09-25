@@ -2,9 +2,9 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import classes.Coordenada;
-import classes.Pilha;
-import classes.Fila;
+import classes.coordenada.*;
+import classes.pilha.*;
+import classes.fila.*;
 
 public class Labirinto
 {
@@ -12,10 +12,9 @@ public class Labirinto
 	{
 		try
 		{
-			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
+			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
 			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
-			String localArquivo = teclado.readLine();*/
-			String localArquivo = "teste1.txt";
+			String localArquivo = teclado.readLine();
 			FileReader fr_arq = new FileReader(localArquivo);
 			BufferedReader arq = new BufferedReader(fr_arq);
 			int linhas = Integer.parseInt(arq.readLine().trim());
