@@ -1,7 +1,7 @@
 package classes;
-import classes.coordenada.*;
-import classes.pilha.*;
-import classes.fila.*;
+import coordenada.*;
+import pilha.*;
+import fila.*;
 
 public class Labirinto implements Cloneable
 {
@@ -15,7 +15,7 @@ public class Labirinto implements Cloneable
 	protected int colunas;
 	protected int linhas;
 
-	public Labirinto(char[][] m, l, c) throws Exception
+	public Labirinto(char[][] m,int l,int c) throws Exception
 	{
 		if (m == null)
 			throw new Exception("Matriz nula");
@@ -139,12 +139,14 @@ public class Labirinto implements Cloneable
 
 	public String toString()
 	{
+		String ret = "";
 		for (int c = 0; c < this.colunas; c++)
+		{
 			for (int l = 0; l < this.linhas; l++)
-			{
-
-			}
-
+				ret += matriz[l][c] + " ";
+			ret += "\r\n";
+		}
+		return ret;
 	}
 
 	public boolean equals(Object obj)
@@ -170,7 +172,19 @@ public class Labirinto implements Cloneable
 
 	public int hashCode()
 	{
+		int ret = 1;
 
+		ret += ret * 2 + new Integer(this.linhas).hashCode();
+		ret += ret * 2 + new Integer(this.colunas).hashCode();
+		for(int l = 0; l < this.linhas; l++)
+			for(int c  = 0; c < this.colunas; c++)
+					ret += ret * 2 + new Character(matriz[l][c]).hashCode();
+		ret += ret * 2 + this.fila.hashCode();
+		ret += ret * 2 + this.possibilidades.hashCode();
+		ret += ret * 2 + this.atual.hashCode();
+		ret += ret * 2 + this.caminho.hashCode();
+
+		return ret;
 	}
 
 	public Labirinto(Labirinto modelo) throws Exception
@@ -178,20 +192,18 @@ public class Labirinto implements Cloneable
 		if (modelo == null)
 		throw new Exception ("Modelo ausente");
 
-		this.matriz = new Object(modelo.matriz.length, modelo.matriz[0].length);
+		this.colunas = new Integer(modelo.colunas);
+	    this.linhas = new Integer(modelo.linhas);
+		this.matriz = new char[this.linhas][this.colunas];
+		for(int l = 0; l < this.linhas; l++)
+			for(int c  = 0; c < this.colunas; c++)
+				this.matriz[l][c] = modelo.matriz[l][c];
 		this.caminho = modelo.caminho.clone();
-		this.possibilidades = new Object (modelo.possibilidades.length);
+		this.possibilidades = mocelo.possibilidades.clone();
 		this.atual = modelo.atual;
-		this.fila = new Object (modelo.fila.length);
-		this.achouSaida = modelo.achouSaida;
+		this.fila = modelo.fila.clone();
+		this.achouSaida = new Boolean(modelo.achouSaida);
 		this.passouRegressivo = modelo.passouRegressivo;
-		this.colunas = modelo.colunas;
-	    this.linhas = modelo.linhas;
-
-	    for (int i=0; i<=modelo.fila.length; i++)
-		    this.fila[i] = modelo.fila[i];
-
-
 
 	}
 
@@ -206,7 +218,5 @@ public class Labirinto implements Cloneable
 	    catch(Exception erro)
 	    {}
 	    return ret;
-
-
 	}
 }

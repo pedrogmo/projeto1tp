@@ -92,8 +92,8 @@ public class Coordenada
 	{
 	 	 int ret = 1;
 
-	 	 ret = ret * 2 + new Integer(this.linha ).hashCode();
-	 	 ret = ret * 2 + new Integer(this.coluna).hashCode();
+	 	 ret += ret * 2 + new Integer(this.linha ).hashCode();
+	 	 ret += ret * 2 + new Integer(this.coluna).hashCode();
 
 	 	 return ret;
 	}
