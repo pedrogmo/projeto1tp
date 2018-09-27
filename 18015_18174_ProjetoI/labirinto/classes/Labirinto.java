@@ -20,7 +20,7 @@ public class Labirinto implements Cloneable
 		if (m == null)
 			throw new Exception("Matriz nula");
 		if (l <= 0 || c <= 0)
-			throw new Exception("Colunas e/ou Linhas inválida(s)");
+			throw new Exception("Colunas e/ou Linhas invï¿½lida(s)");
 		this.linhas = l;
 		this.colunas = c;
 		this.matriz = m;
@@ -62,7 +62,7 @@ public class Labirinto implements Cloneable
 			if (haParaOndeIr())
 				sairRegressivo = true;//afirma que saiu
 			if (this.possibilidades.isVazia())
-				throw new Exception("Não foi possível resolver o labirinto");
+				throw new Exception("Nï¿½o foi possï¿½vel resolver o labirinto");
 		}
 		while (!sairRegressivo);
 	}
@@ -100,7 +100,7 @@ public class Labirinto implements Cloneable
 	public Coordenada getSaida()
 	{
 		if (!this.achouSaida)
-			throw new Exception("Saída não encontrada");
+			throw new Exception("Saï¿½da nï¿½o encontrada");
 		return atual;
 	}
 
@@ -115,7 +115,7 @@ public class Labirinto implements Cloneable
 						atual = new Coordenada(l,c);
 				}
 		if (atual == null)
-				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
+				throw new Exception("Caractere 'E' do inï¿½cio do labirinto nï¿½o econtrado.");
 	}
 
 	public void procurarAdjacentes()

@@ -3,10 +3,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import classes.coordenada.*;
-import classes.pilha.*;
-import classes.fila.*;
-import classes.*;
+import classes.coordenada.Coordenada;
+import classes.pilha.Pilha;
+import classes.fila.Fila;
+import classes.Labirinto;
 
 public class Programa
 {
@@ -37,8 +37,9 @@ public class Programa
 			arq.close();
 			Labirinto lab = new Labirinto(matriz, linhas, colunas);
 			lab.procurarSaida();
-
-			System.out.println("Labirinto resolvido, saída em: " + lab.getSaida());
+			
+			Coordenada saida = lab.getSaida();
+			System.out.println("Labirinto resolvido, saída em: " + saida.toString());
 			System.out.print("Caminho: ");
 			Pilha<Coordenada> inverso = lab.getInversoDeCaminho();
 			while(!inverso.isVazia())
