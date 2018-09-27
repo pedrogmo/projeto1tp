@@ -1,22 +1,22 @@
 package classes.coordenada;
 
 /**
-* A classe Coordenada representa uma simples coordenada com inteiros linha e coluna, que indicam a posiÁ„o em uma matriz.
-* Inst‚ncias da classe n„o podem trocar os valores originalmente definidos como par‚metros do mÈtodo construtor.
-* H· getters que retornam linha e coluna.
+* A classe Coordenada representa uma simples coordenada com inteiros linha e coluna, que indicam a posi√ß√£o em uma matriz.
+* Inst√¢ncias da classe n√£o podem trocar os valores originalmente definidos como par√¢metros do m√©todo construtor.
+* H√° getters que retornam linha e coluna.
 * @author Pedro Gomes Moreira e Gustavo Henrique de Meira.
 * @since 2018.
 */
 public class Coordenada
 {
 	/**
-	* Vari·veis de linha e coluna da coordenada representam a posiÁ„o na matriz.
+	* Vari√°veis de linha e coluna da coordenada representam a posi√ß√£o na matriz.
 	*/
 	protected int linha, coluna;
 
    /**
-	* ConstrÛi uma nova inst‚ncia da classe Coordenada.
-	* Para tanto, s„o exigidos os par‚metros inteiros linha e coluna.
+	* Constr√≥i uma nova inst√¢ncia da classe Coordenada.
+	* Para tanto, s√£o exigidos os par√¢metros inteiros linha e coluna.
 	* @param l a linha da coordenada.
 	* @param c a coluna da coordenada.
 	* @throws Exception se um dos valores passados for negativo.
@@ -24,13 +24,13 @@ public class Coordenada
 	public Coordenada(int l, int c) throws Exception
 	{
 		if(l<0 || c<0)
-			throw new Exception("Coordenada inv·lida");
+			throw new Exception("Coordenada invalida");
 	  	this.linha = l;
 	  	this.coluna = c;
 	}
 
 	/**
-	* ObtÈm a linha da coordenada.
+	* Obt√©m a linha da coordenada.
 	* @return a linha da coordenada.
 	*/
 	public int getLinha()
@@ -39,7 +39,7 @@ public class Coordenada
 	}
 
 	/**
-	* ObtÈm a coluna da coordenada.
+	* Obt√©m a coluna da coordenada.
 	* @return a coluna da coordenada.
 	*/
 	public int getColuna()
@@ -48,7 +48,7 @@ public class Coordenada
 	}
 
 	/**
-	* Gera uma string de texto com linha e coluna da coordenada dentro de parÍnteses.
+	* Gera uma string de texto com linha e coluna da coordenada dentro de par√™nteses.
 	* @return string com a coordenada, no formato (linha,coluna).
 	*/
 	public String toString()
@@ -57,11 +57,11 @@ public class Coordenada
 	}
 
 	/**
-	* Verifica a igualdade entre o objeto de Coordenada e um outro objeto passado por par‚metro.
-	* Verifica se o objeto passado È uma coordenada com mesma linha e coluna que a coordenada this,
-	* retornando true se os valores de ambas forem iguais, e false caso contr·rio
+	* Verifica a igualdade entre o objeto de Coordenada e um outro objeto passado por par√¢metro.
+	* Verifica se o objeto passado √© uma coordenada com mesma linha e coluna que a coordenada this,
+	* retornando true se os valores de ambas forem iguais, e false caso contr√°rio
 	* @param obj o objeto a ser comparado com a coordenada.
-	* @return true se os objetos forem iguais e false caso contr·rio.
+	* @return true se os objetos forem iguais e false caso contr√°rio.
 	*/
 	public boolean equals (Object obj)
 	{
@@ -85,8 +85,8 @@ public class Coordenada
 	}
 
 	/**
-	* Calcula e retorna o cÛdigo de espalhamento (ou cÛdigo de hash) da inst‚ncia de Coordenada que chama o mÈtodo.
-	* @return o cÛdigo de espalhamento da coordenada que chama o mÈtodo.
+	* Calcula e retorna o c√≥digo de espalhamento (ou c√≥digo de hash) da inst√¢ncia de Coordenada que chama o m√©todo.
+	* @return o c√≥digo de espalhamento da coordenada que chama o m√©todo.
 	*/
 	public int hashCode()
 	{
@@ -99,12 +99,12 @@ public class Coordenada
 	}
 
 	/**
-	* Compara duas coordenadas a fim de verificar se a atual È maior, menor ou igual ‡ coordenada passada por par‚metro.
+	* Compara duas coordenadas a fim de verificar se a atual √© maior, menor ou igual √† coordenada passada por par√¢metro.
 	* Retorna 1 se a linha atual for maior que a da outra, ou se ambas forem iguais mas a coluna maior.
 	* Retorna -1 se a linha atual for menor que a da outra, ou se ambas forem iguais mas a coluna menor.
 	* Retorna 0 se a linha e coluna das duas coordenadas forem iguais.
-	* @param outra a coordenada a ser comparada com a inst‚ncia que chama o mÈtodo.
-	* @return o inteiro que indica se this È maior, menor ou igual ‡ outra.
+	* @param outra a coordenada a ser comparada com a inst√¢ncia que chama o m√©todo.
+	* @return o inteiro que indica se this √© maior, menor ou igual √† outra.
 	*/
 	public int compareTo(Coordenada outra)
 	{

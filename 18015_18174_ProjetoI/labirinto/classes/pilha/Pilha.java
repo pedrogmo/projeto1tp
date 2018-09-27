@@ -10,56 +10,56 @@ Nela pode-se guardar, jogar fora e obter objetos
 */
 public class Pilha<X> implements Cloneable
 {
-	/**
-	@vetor é um vetor do tipo object que armazena os valores a serem manuseados
-	*/
+		/**
+		Vetor interno do tipo object que armazena os valores a serem manuseados.
+		*/
     	protected Object[] vetor;
     	/**
-    	@qtd armazena a quantidade de itens no vetor
+    	A quantidade de itens no vetor.
     	*/
     	protected int qtd = 0;
 
     	/**
-    	Constroi uma nova instância da classe Pilha.
-	Para tanto, deve ser fornecido um inteiro que será utilizado
-	como capacidade da instância recém criada.
-	@param capacidade o número inteiro a ser utilizado como capacidade.
+    	Constroi uma nova instÃ¢ncia da classe Pilha.
+		Para tanto, deve ser fornecido um inteiro que serÃ¡ utilizado
+		como capacidade da instÃ¢ncia recÃ©m criada.
+		@param capacidade o nÃºmero inteiro a ser utilizado como capacidade.
     	@throws Exception se a capacidade for negativa.
     	*/
     	public Pilha (int capacidade) throws Exception
     	{
         	if (capacidade<0)
-            		throw new Exception ("Capacidade inválida");
+            		throw new Exception ("Capacidade invalida");
         	this.vetor = new Object [capacidade];
     	}
 
     	/**
     	Cria-se um clone do objeto a ser manuseado
-    	@param é um objeto do tipo X cujo método clone será acessado
-    	@return  o método já invocado
+    	@param x um objeto do tipo X cujo mÃ©todo clone serÃ¡ acessado
+    	@return  o mÃ©todo jÃ¡ invocado
     	*/
-	protected X meuCloneDeX(X x)
-	{
-		//fazer: return (X)x.clone();
-		X ret = null;
-		try{
-			Class<?> classe = x.getClass(); //classe String é guardada dentro da variável
-			Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um método
-			tiposDoParametroFormal = null; //vetor nulo, porque clone não tem parâmetros
-			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
-			Object[] parametrosReais = null;
-			ret = (X)metodo.invoke(x, parametrosReais); //erro aqui, invoke tem dois parâmetros
+		protected X meuCloneDeX(X x)
+		{
+			//fazer: return (X)x.clone();
+			X ret = null;
+			try{
+				Class<?> classe = x.getClass();
+				Class<?>[] tiposDoParametroFormal;
+				tiposDoParametroFormal = null;
+				Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
+				Object[] parametrosReais = null;
+				ret = (X)metodo.invoke(x, parametrosReais);
+			}
+			catch(InvocationTargetException erro){}
+			catch(NoSuchMethodException erro2){}
+			catch(IllegalAccessException erro3){}
+			return ret;
 		}
-		catch(InvocationTargetException erro){}
-		catch(NoSuchMethodException erro2){}
-		catch(IllegalAccessException erro3){}
-		return ret;
-	}
-	/**
-	Guarda o objeto na última posição do vetor
-	@param é o objeto a ser guardado
-	@throws Exception se o objeto for null ou se a fila estiver cheia
-	*/
+		/**
+		Guarda o objeto na Ãºltima posiÃ§Ã£o do vetor
+		@param s o objeto a ser guardado
+		@throws Exception se o objeto for null ou se a fila estiver cheia
+		*/
     	public void guarde (X s) throws Exception
     	{
 		if (s==null)
@@ -68,14 +68,14 @@ public class Pilha<X> implements Cloneable
 		if (this.isCheia())
 				throw new Exception ("Pilha cheia");
         	if (s instanceof Cloneable)
-	        	this.vetor[this.qtd] = this.meuCloneDeX(s);  // vai dar pau; tem que contornar
+	        	this.vetor[this.qtd] = this.meuCloneDeX(s);
 	    	else
 	        	this.vetor[this.qtd] = s;
         	this.qtd++;
-	}
+		}
 
     	/**
-    	Obtém o último item da pilha
+    	ObtÃ©m o Ãºltimo item da pilha
     	@throws Exception se a pilha estiver vazia
     	*/
     	public X getUmItem () throws Exception
@@ -88,7 +88,7 @@ public class Pilha<X> implements Cloneable
     	}
 
     	/**
-    	Descarta do vetor o último item
+    	Descarta do vetor o Ãºltimo item
     	@throws Exception se a pilha estiver vazia
     	*/
     	public void jogueForaUmItem () throws Exception
@@ -104,8 +104,8 @@ public class Pilha<X> implements Cloneable
     	}
 
     	/**
-    	Boolean que retorna se a pilha está cheia
-    	@return se a quantidade de itens é igual ao tamanho do vetor
+    	Boolean que retorna se a pilha estÃ¡ cheia
+    	@return se a quantidade de itens Ã© igual ao tamanho do vetor
     	*/
     	public boolean isCheia ()
     	{
@@ -113,104 +113,104 @@ public class Pilha<X> implements Cloneable
     	}
 
     	/**
-    	Boolean que retorna se a pilha está vazia
-    	@return se a quantidade de itens é igual a 0
+    	Boolean que retorna se a pilha estÃ¡ vazia
+    	@return se a quantidade de itens Ã© igual a 0
     	*/
     	public boolean isVazia ()
     	{
         	return this.qtd==0;
     	}
 
-	/**
-	Transforma a pilha em string para ser exibida informando o número de elementos e qual é o último
-	@return retorna a Pilha em string informando o número de elementos e qual é o último
-	*/
+		/**
+		Transforma a pilha em string para ser exibida informando o nÃºmero de elementos e qual Ã© o Ãºltimo
+		@return retorna a Pilha em string informando o nÃºmero de elementos e qual Ã© o Ãºltimo
+		*/
     	public String toString ()
     	{
 		if (this.qtd==0)
 		    return "Vazia";
 
 		return this.qtd+" elementos, sendo o ultimo "+this.vetor[this.qtd-1];
-	}
-	/**
-	Compara o objeto a pilha e retorna se são iguais ou não
-	@param é o objeto a comparar com a pilha
-	@return true se for igual ou false se forem diferentes
-	*/
-	public boolean equals (Object obj)//compara this e obj
-	{
-		if (this==obj)
-		    return true;
-
-		if (obj==null)
-		    return false;
-
-		if (this.getClass()!=obj.getClass())
-		    return false;
-
-		Pilha<X> pil = (Pilha<X>)obj;
-
-		if (this.qtd!=pil.qtd)
-		    return false;
-
-		for (int i=0; i<this.qtd; i++)
-		    if (!this.vetor[i].equals(pil.vetor[i]))
-		        return false;
-
-		return true;
-	}
-
-    	/**
-    	Retorna o código de espalhamento(hash)
-    	@return o código de hash
-    	*/
-	public int hashCode ()
-	{
-		int ret=666; // so nao pode ser zero
-
-		ret = ret*2 + new Integer(this.qtd).hashCode();
-
-        for (int i=0; i<this.qtd; i++)
-          //if (this.vetor[i]!=null)
-				ret = ret*2 + this.vetor[i].hashCode();
-
-		return ret;
-	}
-	/**
-	Cria um construtor de cópia de Pilha
-	@param modelo é um objeto do tipo pilha que receberá os dados da
-	@throws Exception se o modelo for null
-	*/
-	public Pilha (Pilha modelo) throws Exception //construtor de copia
-	{
-		if (modelo==null)
-			throw new Exception ("Modelo ausente");
-
-		this.qtd = modelo.qtd;
-
-		this.vetor = new Object[modelo.vetor.length];
-
-		for (int i=0; i<=modelo.qtd; i++)
-		    this.vetor[i] = modelo.vetor[i];
-	}
-
-    	/**
-    	Cria e retorna uma cópia da instância chamante do método (this).
-    	Utiliza o construtor de cópia para criar uma instância idêntica ao
-    	this para então retorná-la.
-    	para ser utilizada como modelo para a construção da nova instância
-    	*/
-	public Object clone ()
-	{
-		Pilha<X> ret=null;
-
-		try
-		{
-			ret = new Pilha<X> (this);
 		}
-		catch (Exception erro)
-		{}
+		/**
+		Compara o objeto a pilha e retorna se sÃ£o iguais ou nÃ£o
+		@param obj o objeto a comparar com a pilha
+		@return true se for igual ou false se forem diferentes
+		*/
+		public boolean equals (Object obj)
+		{
+			if (this==obj)
+				return true;
 
-		return ret;
-	}
+			if (obj==null)
+				return false;
+
+			if (this.getClass()!=obj.getClass())
+				return false;
+
+			Pilha<X> pil = (Pilha<X>)obj;
+
+			if (this.qtd!=pil.qtd)
+				return false;
+
+			for (int i=0; i<this.qtd; i++)
+				if (!this.vetor[i].equals(pil.vetor[i]))
+					return false;
+
+			return true;
+		}
+
+		/**
+		Retorna o cÃ³digo de espalhamento(hash)
+		@return o cÃ³digo de hash
+		*/
+		public int hashCode ()
+		{
+			int ret=1;
+
+			ret = ret*2 + new Integer(this.qtd).hashCode();
+
+			for (int i=0; i<this.qtd; i++)
+			//if (this.vetor[i]!=null)
+					ret = ret*2 + this.vetor[i].hashCode();
+
+			return ret;
+		}
+		/**
+		Cria um construtor de cÃ³pia de Pilha
+		@param modelo objeto do tipo pilha que receber os dados da instÃ¢ncia atual
+		@throws Exception se o modelo for null
+		*/
+		public Pilha (Pilha modelo) throws Exception //construtor de copia
+		{
+			if (modelo==null)
+				throw new Exception ("Modelo ausente");
+
+			this.qtd = modelo.qtd;
+
+			this.vetor = new Object[modelo.vetor.length];
+
+			for (int i=0; i<=modelo.qtd; i++)
+				this.vetor[i] = modelo.vetor[i];
+		}
+
+		/**
+		Cria e retorna uma cÃ³pia da instÃ¢ncia chamante do mÃ©todo (this).
+		Utiliza o construtor de cÃ³pia para criar uma instÃ¢ncia idÃªntica ao this para entÃ£o retornÃ¡-la.
+		para ser utilizada como modelo para a construÃ§Ã£o da nova instÃ¢ncia.
+		@return o clone da pilha que chama o mÃ©todo.
+		*/
+		public Object clone ()
+		{
+			Pilha<X> ret=null;
+
+			try
+			{
+				ret = new Pilha<X> (this);
+			}
+			catch (Exception erro)
+			{}
+
+			return ret;
+		}
 }

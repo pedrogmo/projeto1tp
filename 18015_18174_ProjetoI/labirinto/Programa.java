@@ -16,9 +16,9 @@ public class Programa
 		{
 			//leitura do arquivo
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
+			System.out.print("Digite o nome do arquivo a ser lido: ");
 			String localArquivo = teclado.readLine();
-			BufferedReader arq = new BufferedReader(new FileReader(localArquivo););
+			BufferedReader arq = new BufferedReader(new FileReader(localArquivo + ".txt"));
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
 			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas + "\n");
@@ -46,7 +46,8 @@ public class Programa
 				System.out.print(inverso.getUmItem() + " ");
 				inverso.jogueForaUmItem();
 			}
-			PrintStream resultado = new PrintStream();
+			PrintStream resultado = new PrintStream(localArquivo + ".res.txt");
+			resultado.printnln(lab.toString());
 		}
 		catch (Exception erro)
 		{
