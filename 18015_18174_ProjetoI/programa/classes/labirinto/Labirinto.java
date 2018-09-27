@@ -1,7 +1,7 @@
-package classes;
-import coordenada.*;
-import pilha.*;
-import fila.*;
+package classes.labirinto;
+import classes.coordenada.*;
+import classes.pilha.*;
+import classes.fila.*;
 
 public class Labirinto implements Cloneable
 {

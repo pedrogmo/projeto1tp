@@ -3,10 +3,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+
 import classes.coordenada.Coordenada;
 import classes.pilha.Pilha;
 import classes.fila.Fila;
-import classes.Labirinto;
+import classes.labirinto.Labirinto;
 
 public class Programa
 {
