@@ -143,12 +143,12 @@ public class Labirinto
 
 	protected static void printaMatriz(char[][] m, int maxl, int maxc)
 	{
-		if (maxl * maxc < 1000) //só printa matriz se a quantidade de caracteres for menor que 1000, se não o programa não roda
-			for(int l = 0; l < maxl; l++)
-			{
-				for(int c = 0; c < maxc; c++)
-					System.out.print(m[l][c] + " ");
-				System.out.println();
-			}
+		//if (maxl * maxc < 1000) //só printa matriz se a quantidade de caracteres for menor que 1000, se não o programa não roda
+		for(int l = 0; l < maxl; l++)
+		{
+			for(int c = 0; c < maxc; c++)
+				System.out.print(m[l][c] + " ");
+			System.out.println();
+		}
 	}
 }
