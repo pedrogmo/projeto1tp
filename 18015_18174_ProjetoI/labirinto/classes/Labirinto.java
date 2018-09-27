@@ -3,7 +3,7 @@ import classes.coordenada.*;
 import classes.pilha.*;
 import classes.fila.*;
 
-public class Labirinto
+public class Labirinto implements Cloneable
 {
 	protected char[][] matriz;
 	protected Pilha<Coordenada> caminho;
@@ -152,13 +152,40 @@ public class Labirinto
 
 	}
 
-	public Labirinto(Labirinto modelo)
+	public Labirinto(Labirinto modelo) throws Exception
 	{
+		if (modelo == null)
+		throw new Exception ("Modelo ausente");
+
+		this.matriz = new Object(modelo.matriz.length, modelo.matriz[0].length);
+		this.caminho = new Object (modelo.colunas * modelo.linhas);
+		this.possibilidades = new Object (modelo.possibilidades.length);
+		this.atual = modelo.atual;
+		this.fila = new Object (modelo.fila.length);
+		this.achouSaida = modelo.achouSaida;
+		this.passouRegressivo = modelo.passouRegressivo;
+		this.colunas = modelo.colunas;
+	    this.linhas = modelo.linhas;
+
+	    for (int i=0; i<=modelo.fila.length; i++)
+		    this.fila[i] = modelo.fila[i];
+
+
 
 	}
 
 	public Labirinto clone()
 	{
+		Labirinto ret = null;
+		try
+		{
+			ret = new Labirinto(this);
+
+	    }
+	    catch(Exception erro)
+	    {}
+	    return ret;
+
 
 	}
 }
