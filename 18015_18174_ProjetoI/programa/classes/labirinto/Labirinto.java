@@ -20,7 +20,7 @@ public class Labirinto implements Cloneable
 		if (m == null)
 			throw new Exception("Matriz nula");
 		if (l <= 0 || c <= 0)
-			throw new Exception("Colunas e/ou Linhas inv�lida(s)");
+			throw new Exception("Colunas e/ou Linhas inválida(s)");
 		this.linhas = l;
 		this.colunas = c;
 		this.matriz = m;
@@ -32,13 +32,13 @@ public class Labirinto implements Cloneable
 		this.passouRegressivo = false;
 	}
 
-	protected void progressivo()
+	protected void progressivo() throws Exception
 	{
-		atual = fila.getUmItem();
-		fila.jogueForaUmItem();
+		this.atual = fila.getUmItem();
+		this.fila.jogueForaUmItem();
 		int lPasso = atual.getLinha();
 		int cPasso = atual.getColuna();
-		if (matriz[lPasso][cPasso] == 'S') //achou saida
+		if (this.matriz[lPasso][cPasso] == 'S') //achou saida
 			this.achouSaida = true;
 		else //nao e a saida, e so um espaco em branco. Tem que dar passo
 		{
@@ -62,19 +62,20 @@ public class Labirinto implements Cloneable
 			if (haParaOndeIr())
 				sairRegressivo = true;//afirma que saiu
 			if (this.possibilidades.isVazia())
-				throw new Exception("N�o foi poss�vel resolver o labirinto");
+				throw new Exception("Não foi possível resolver o labirinto");
 		}
 		while (!sairRegressivo);
 	}
 
 	public void procurarSaida() throws Exception
 	{
+		procurarEntrada();
 		while(!this.achouSaida)
 		{
-			if (!this.passouRegressivo())
+			if (!this.passouRegressivo)
 				procurarAdjacentes();
 			else
-				this.passouRegressivo = false;
+				this.passouRegressivo = false;		
 
 			if (haParaOndeIr())
 				progressivo();
@@ -82,7 +83,7 @@ public class Labirinto implements Cloneable
 				regressivo();
 		}
 	}
-	public Pilha<Coordenada> getInversoDeCaminho()
+	public Pilha<Coordenada> getInversoDeCaminho() throws Exception
 	{
 		Pilha<Coordenada> ret = new Pilha<Coordenada>(this.colunas * this.linhas);
 		while (!this.caminho.isVazia())
@@ -97,11 +98,11 @@ public class Labirinto implements Cloneable
 		return !this.fila.isVazia();
 	}
 
-	public Coordenada getSaida()
+	public Coordenada getSaida() throws Exception
 	{
 		if (!this.achouSaida)
-			throw new Exception("Sa�da n�o encontrada");
-		return atual;
+			throw new Exception("Saída não encontrada");
+		return this.atual;
 	}
 
 	protected void procurarEntrada() throws Exception
@@ -112,13 +113,13 @@ public class Labirinto implements Cloneable
 				{
 					char valoratual = this.matriz[l][c];
 					if (valoratual == 'E')
-						atual = new Coordenada(l,c);
+						this.atual = new Coordenada(l,c);
 				}
-		if (atual == null)
-				throw new Exception("Caractere 'E' do in�cio do labirinto n�o econtrado.");
+		if (this.atual == null)
+				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 	}
 
-	public void procurarAdjacentes()
+	protected void procurarAdjacentes() throws Exception
 	{
 		this.fila = new Fila<Coordenada>(3);
 		int cAtual = this.atual.getColuna();
@@ -140,10 +141,10 @@ public class Labirinto implements Cloneable
 	public String toString()
 	{
 		String ret = "";
-		for (int c = 0; c < this.colunas; c++)
+		for (int l = 0; l < this.linhas; l++)
 		{
-			for (int l = 0; l < this.linhas; l++)
-				ret += matriz[l][c] + " ";
+			for (int c = 0; c < this.colunas; c++)
+				ret += this.matriz[l][c] + " ";
 			ret += "\r\n";
 		}
 		return ret;

@@ -1,8 +1,10 @@
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.OutPutStream;
 import java.io.PrintStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import classes.coordenada.Coordenada;
 import classes.pilha.Pilha;
@@ -14,12 +16,12 @@ public class Programa
 	public static void main(String[] args)
 	{
 		try
-		{
-			//leitura do arquivo
-			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-			System.out.print("Digite o nome do arquivo a ser lido: ");
-			String localArquivo = teclado.readLine();
-			BufferedReader arq = new BufferedReader(new FileReader(localArquivo + ".txt"));
+		{			
+			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Digite o nome do arquivo a ser lido, mais sua extensao .txt: ");
+			String localArquivo = teclado.readLine();*/
+			String localArquivo = "teste5.txt";
+			BufferedReader arq = new BufferedReader(new FileReader("testes//" + localArquivo));
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
 			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas + "\n");
@@ -40,7 +42,7 @@ public class Programa
 			lab.procurarSaida();
 			
 			Coordenada saida = lab.getSaida();
-			System.out.println("Labirinto resolvido, saída em: " + saida.toString());
+			System.out.println("Labirinto resolvido.");
 			System.out.print("Caminho: ");
 			Pilha<Coordenada> inverso = lab.getInversoDeCaminho();
 			while(!inverso.isVazia())
@@ -48,8 +50,13 @@ public class Programa
 				System.out.print(inverso.getUmItem() + " ");
 				inverso.jogueForaUmItem();
 			}
-			PrintStream resultado = new PrintStream(localArquivo + ".res.txt");
-			resultado.printnln(lab.toString());
+			System.out.println("\nSaida em: " + saida.toString());
+			
+			String arqSaida = "resultado//" + localArquivo.substring(0, localArquivo.length() - 4) + ".res.txt";
+			PrintStream resultado = new PrintStream(arqSaida);
+			resultado.println(lab.toString());
+			resultado.close();
+			System.out.println("Solucao do labirinto no arquivo texto: " + arqSaida);
 		}
 		catch (Exception erro)
 		{
