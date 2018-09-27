@@ -1,4 +1,4 @@
-ï»¿import java.io.InputStreamReader;
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,43 +19,46 @@ public class Labirinto
 			BufferedReader arq = new BufferedReader(fr_arq);
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
+			if (linhas <= 0 || colunas <= 0)
+				throw new Exception("Quantiade de linhas/colunas inválida");
 			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas + "\n");
 			char[][] matriz = new char[linhas][colunas];
 			Pilha<Coordenada> caminho = new Pilha<Coordenada>(colunas * linhas);
 			Pilha<Fila<Coordenada>> possibilidades = new Pilha<Fila<Coordenada>>(colunas * linhas);
 			Coordenada atual = null;
-			//leitura do arquivo texto, atribuiï¿½ï¿½o dos valores da matriz
+			//leitura do arquivo texto, atribuicao dos valores da matriz
 			for (int l = 0; l < linhas; l++)
 			{
 				String linha = arq.readLine();
 				for (int c = 0; c < colunas; c++)
 				{
 					char valoratual = linha.charAt(c);
-					//System.out.print(valoratual + " ");
+					System.out.print(valoratual + " ");
 					matriz[l][c] = valoratual;
-					if (c==0 || l==0 || c== colunas - 1 || l == linhas - 1) //se Ã© a borda do labirinto
-						if (valoratual == 'E') //se o caractere lido Ã© 'E', inÃ­cio do labirinto
+					if (c==0 || l==0 || c == colunas - 1 || l == linhas - 1) //se e a borda do labirinto
+						if (valoratual == 'E') //se o caractere lido e 'E', inicio do labirinto
 							atual = new Coordenada(l,c);
 				}
 				System.out.println();
 			}
 			arq.close();
 			if (atual == null)
-				throw new Exception("Caractere 'E' do inÃ­cio do labirinto nÃ£o econtrado.");
+				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Comeco do labirinto: " + atual.toString());
 
 			Fila<Coordenada> fila = null; //fila de coordenadas armazenadas e possivelmente tomadas
-			//trÃªs variÃ¡veis boolean para controle dos loops e dos desvios de cÃ³digo:
+			//tres variaveis boolean para controle dos loops e dos desvios de codigo:
 			boolean acabou = false;
 			boolean passouRegressivo = false;
 			boolean sairRegressivo = false;
 
 			do
 			{
-				if (!passouRegressivo)
+				if (!passouRegressivo) 	//na primeira leitura da matriz, e nas outras do modo progressivo, tem que verificar as coordenadas adjacentes à atual
+										//no entanto, quando o programa sai do modo regressivo, a fila já tem coordenadas, então não é necessário ler as adjacentes, apenas depois
 				{
 					fila = new Fila<Coordenada>(3);
-					//colocar as coordenadas possÃ­veis de movimento na fila
+					//colocar as coordenadas possiveis de movimento na fila
 					int cAtual = atual.getColuna();
 					int lAtual = atual.getLinha();
 					if (cAtual + 1 < colunas)         //para direita
@@ -71,16 +74,16 @@ public class Labirinto
 						if (matriz[lAtual][cAtual - 1] == ' ' || matriz[lAtual][cAtual - 1] == 'S')
 							fila.guarde(new Coordenada(lAtual, cAtual - 1));
 				}
-				else //passou regressivo
-					passouRegressivo = false; //voltou para modo progressivo
-				if (!fila.isVazia()) //hï¿½ lugar para ir, modo progressivo
+				else //se o programa saiu do modo regressivo
+					passouRegressivo = false; //voltou para modo progressivo, para voltar a ler as adjacentes
+				if (!fila.isVazia()) //ha lugar para ir, modo progressivo
 				{
 					System.out.println("\nModo progressivo");
 					atual = fila.getUmItem();
 					fila.jogueForaUmItem();
 					int lPasso = atual.getLinha();
 					int cPasso = atual.getColuna();
-					if (matriz[lPasso][cPasso] == 'S') //achou saï¿½da
+					if (matriz[lPasso][cPasso] == 'S') //achou saida
 					{
 						System.out.println("\n\nLabirinto resolvido.");
 						acabou = true;
@@ -98,16 +101,16 @@ public class Labirinto
 						}
 						System.out.println("\nSaida: " + atual.toString());
 					}
-					else //nÃ£o Ã© a saÃ­da, Ã© sÃ³ um espaÃ§o em branco. Tem que dar passo
+					else //nao e a saida, e so um espaco em branco. Tem que dar passo
 					{
 						matriz[lPasso][cPasso] = '*'; //dar passo
 						printaMatriz(matriz, linhas, colunas);
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
-						//printa matriz a cada repetiÃ§Ã£o, para visualizaÃ§Ã£o
+						//printa matriz a cada repeticao, para visualizacao
 					}
 				}
-				else //nÃ£o hÃ¡a lugar para ir, modo regressivo
+				else //nao ha lugar para ir, modo regressivo
 				{
 					passouRegressivo = true;
 					sairRegressivo = false;
@@ -123,8 +126,8 @@ public class Labirinto
 						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
 							sairRegressivo = true;
-						if (possibilidades.isVazia()) //se se essgotaram asss possibilidades
-							throw new Exception("NÃ£o foi possÃ­vel resolver o labirinto");
+						if (possibilidades.isVazia()) //se se esgotaram as possibilidades
+							throw new Exception("Não foi possível resolver o labirinto");
 					}
 					while (!sairRegressivo);
 				}
@@ -139,11 +142,12 @@ public class Labirinto
 
 	protected static void printaMatriz(char[][] m, int maxl, int maxc)
 	{
-		for(int l = 0; l < maxl; l++)
-		{
-			for(int c = 0; c < maxc; c++)
-				System.out.print(m[l][c] + " ");
-			System.out.println();
-		}
+		if (maxl * maxc < 1000) //só printa matriz se a quantidade de caracteres for menor que 1000, se não o programa não roda
+			for(int l = 0; l < maxl; l++)
+			{
+				for(int c = 0; c < maxc; c++)
+					System.out.print(m[l][c] + " ");
+				System.out.println();
+			}
 	}
 }

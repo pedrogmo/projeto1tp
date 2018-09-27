@@ -1,28 +1,28 @@
-Ôªøpackage classes.fila;
+package classes.fila;
 import java.lang.reflect.*;
 
 /**
-* A classe Fila representa uma fila, que tem como base um vetor gen√©rico interno e um inteiro indicador de quantidade de itens.
-* Inst√¢ncias da classe podem guardar, jogar fora e retornar itens armazenados, de uma classe qualquer, representada por "X".
-* Al√©m disso, h√° m√©todos boolean que indicam se a fila est√° vazia e cheia.
+* A classe Fila representa uma fila, que tem como base um vetor genÈrico interno e um inteiro indicador de quantidade de itens.
+* Inst‚ncias da classe podem guardar, jogar fora e retornar itens armazenados, de uma classe qualquer, representada por "X".
+* AlÈm disso, h· mÈtodos boolean que indicam se a fila est· vazia e cheia.
 * @author Pedro Gomes Moreira e Gustavo Henrique de Meira.
 * @since 2018.
 */
 public class Fila<X> implements Cloneable
 {
 	/**
-	* Vetor gen√©rico que guarda objetos da classe X especificada na instancia√ß√£o.
+	* Vetor genÈrico que guarda objetos da classe X especificada na instanciaÁ„o.
 	*/
 	protected Object[] vetor;
 
 	/**
-	* Inteiro que indica quantidade de itens armazenados, para manuten√ß√£o do vetor.
+	* Inteiro que indica quantidade de itens armazenados, para manutenÁ„o do vetor.
 	*/
 	protected int qtd;
 
 	/**
-	* O m√©todo meuCloneDeX() √© respons√°vel por clonar um objeto do vetor para armazen√°-lo e retorn√°-lo, evitando conflitos de edere√ßos de mem√≥ria.
-	* O functionamento se baseia em guardar a classe dos par√¢metros para o m√©todo "clone" da classe X ser invocado.
+	* O mÈtodo meuCloneDeX() È respons·vel por clonar um objeto do vetor para armazen·-lo e retorn·-lo, evitando conflitos de edereÁos de memÛria.
+	* O functionamento se baseia em guardar a classe dos par‚metros para o mÈtodo "clone" da classe X ser invocado.
 	* @param objeto x a ser clonado.
 	* @return o clone do objeto x.
 	*/
@@ -45,22 +45,22 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Constr√≥i uma inst√¢ncia da classe Fila.
-	* Para tanto, √© passado como par√¢metro o inteiro com a capacidade do vetor interno.
+	* ConstrÛi uma inst‚ncia da classe Fila.
+	* Para tanto, È passado como par‚metro o inteiro com a capacidade do vetor interno.
 	* @param a capacidade desejada para o vetor interno.
 	* @throws Exception se a capacidade especificada for negativa.
 	*/
 	public Fila (int capacidade) throws Exception
 	{
 		if (capacidade < 0)
-			throw new Exception("Capacidade invÔøΩlida");
+			throw new Exception("Capacidade inv?lida");
 		this.vetor = new Object[capacidade];
 		this.qtd = 0;
 	}
 
 	/**
-	* Constr√≥i uma c√≥pia da inst√¢ncia de Fila especificada.
-	* Para tanto, √© passada como par√¢metro a Fila de modelo a ser copiada.
+	* ConstrÛi uma cÛpia da inst‚ncia de Fila especificada.
+	* Para tanto, È passada como par‚metro a Fila de modelo a ser copiada.
 	* @param o modelo de Fila.
 	* @throws Exception se o modelo passado for nulo.
 	*/
@@ -75,14 +75,14 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Guarda um objeto da classe X na √∫ltima posi√ß√£o do vetor, aumentando a vari√°vel de quantidade de itens armazenados.
+	* Guarda um objeto da classe X na ˙ltima posiÁ„o do vetor, aumentando a vari·vel de quantidade de itens armazenados.
 	* @param o objeto da classe X a ser guardado.
     	* @throws Exception se o item a ser guardado for nulo e se a Fila estiver cheia.
 	*/
 	public void guarde(X h) throws Exception
 	{
 		if (h == null)
-			throw new Exception("Paar√¢ametro inv√°lido!");
+			throw new Exception("Paar‚ametro inv·lido!");
 		if (this.isCheia())
 			throw new Exception("Fila cheia!");
 		if (h instanceof Cloneable)
@@ -93,9 +93,9 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Joga fora o item da primeira posi√ß√£o do vetor, reduzindo a quantidade de itens.
-	* Faz tudo que est√° na frente da primeira posi√ß√£o ir para tr√°s, com um loop.
-	* @throws Exception se a fila est√° vazia, n√£o haveria itens para serem jogados fora.
+	* Joga fora o item da primeira posiÁ„o do vetor, reduzindo a quantidade de itens.
+	* Faz tudo que est· na frente da primeira posiÁ„o ir para tr·s, com um loop.
+	* @throws Exception se a fila est· vazia, n„o haveria itens para serem jogados fora.
 	*/
 	public void jogueForaUmItem() throws Exception
 	{
@@ -108,9 +108,9 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Obtem um valor da classe X armazenado na primeira posi√ß√£o do vetor inteiro.
-	* @return valor da posi√ß√£o 0 do vetor.
-	* @throws Exception se a fila est√° vazia.
+	* Obtem um valor da classe X armazenado na primeira posiÁ„o do vetor inteiro.
+	* @return valor da posiÁ„o 0 do vetor.
+	* @throws Exception se a fila est· vazia.
 	*/
 	public X getUmItem() throws Exception
 	{
@@ -123,8 +123,8 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Verifica se a fila est√° vazia.
-	* @return true se a fila est√° vazia (quantidade de itens √© 0), false caso contr√°rio.
+	* Verifica se a fila est· vazia.
+	* @return true se a fila est· vazia (quantidade de itens È 0), false caso contr·rio.
 	*/
 	public boolean isVazia()
 	{
@@ -132,8 +132,8 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Verifica se a fila est√° cheia.
-	* @return true se a fila est√° cheia (quantidade de itens √© igual ao tamanho), false caso contr√°rio.
+	* Verifica se a fila est· cheia.
+	* @return true se a fila est· cheia (quantidade de itens È igual ao tamanho), false caso contr·rio.
 	*/
 	public boolean isCheia()
 	{
@@ -141,9 +141,9 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-    	* Gera uma string com texto que representa a inst√¢ncia da fila.
+    	* Gera uma string com texto que representa a inst‚ncia da fila.
     	* Retorna a quantidade de itens guardados e o primeiro item da fila.
-    	* @return uma string com o conte√∫do da fila.
+    	* @return uma string com o conte˙do da fila.
     	*/
 	public String toString()
 	{
@@ -153,9 +153,9 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Verifica se a fila atual √© igual ao objeto passado por par√¢metro.
+	* Verifica se a fila atual È igual ao objeto passado por par‚metro.
 	* Compara as classes do objeto, verifica a quantidade de itens dos dois e o vetor de dados.
-	* @return true se as filas forem iguais, false caso contr√°rio.
+	* @return true se as filas forem iguais, false caso contr·rio.
 	*/
 	public boolean equals(Object obj)
 	{
@@ -176,8 +176,8 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Gera o c√≥digo de espalhamento (c√≥digo de hash) da inst√¢ncia atual de Fila, que chama o m√©todo.
-	* @return o c√≥digo de espalhamento da fila que chama o m√©todo.
+	* Gera o cÛdigo de espalhamento (cÛdigo de hash) da inst‚ncia atual de Fila, que chama o mÈtodo.
+	* @return o cÛdigo de espalhamento da fila que chama o mÈtodo.
 	*/
 	public int hashCode()
 	{
@@ -189,9 +189,9 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-	* Clona e retorna a inst√¢ncia atual de fila.
-	* Instancia uma nova fila com o construtor de c√≥pia, passando como par√¢metro a fila atual.
-	* @return o clone da fila que chama o m√©todo.
+	* Clona e retorna a inst‚ncia atual de fila.
+	* Instancia uma nova fila com o construtor de cÛpia, passando como par‚metro a fila atual.
+	* @return o clone da fila que chama o mÈtodo.
 	*/
 	public Object clone()
 	{
