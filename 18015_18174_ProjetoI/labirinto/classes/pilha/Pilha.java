@@ -1,4 +1,4 @@
-package classes.pilha;
+﻿package classes.pilha;
 import java.lang.reflect.*;
 
 /**
@@ -13,46 +13,31 @@ public class Pilha<X> implements Cloneable
 	/**
 	@vetor é um vetor do tipo object que armazena os valores a serem manuseados
 	*/
-    protected Object[] vetor;
-    /**
-    @qtd armazena a quantidade de itens no vetor
-    */
-    protected int qtd = 0;
+    	protected Object[] vetor;
+    	/**
+    	@qtd armazena a quantidade de itens no vetor
+    	*/
+    	protected int qtd = 0;
 
-    /**
-    Constroi uma nova instância da classe Pilha.
+    	/**
+    	Constroi uma nova instância da classe Pilha.
 	Para tanto, deve ser fornecido um inteiro que será utilizado
 	como capacidade da instância recém criada.
 	@param capacidade o número inteiro a ser utilizado como capacidade.
-    @throws Exception se a capacidade for negativa.
-    */
-    public Pilha (int capacidade) throws Exception
-    {
-        if (capacidade<0)
-            throw new Exception ("Capacidade inválida");
+    	@throws Exception se a capacidade for negativa.
+    	*/
+    	public Pilha (int capacidade) throws Exception
+    	{
+        	if (capacidade<0)
+            		throw new Exception ("Capacidade inválida");
+        	this.vetor = new Object [capacidade];
+    	}
 
-        this.vetor = new Object [capacidade];
-    }
-
-    //versao remediadora
-    /*
-    public Pilha (int capacidade) throws Exception
-    {
-        try
-        {
-            this.vetor = new Object [capacidade];
-        }
-        catch (NegativeArraySizeException erro)
-        {
-            throw new Exception ("Capacidade inválida");
-        }
-    }
-    */
-    /**
-    Cria-se um clone do objeto a ser manuseado
-    @param é um objeto do tipo X cujo método clone será acessado
-    @return  o método já invocado
-    */
+    	/**
+    	Cria-se um clone do objeto a ser manuseado
+    	@param é um objeto do tipo X cujo método clone será acessado
+    	@return  o método já invocado
+    	*/
 	protected X meuCloneDeX(X x)
 	{
 		//fazer: return (X)x.clone();
@@ -75,73 +60,73 @@ public class Pilha<X> implements Cloneable
 	@param é o objeto a ser guardado
 	@throws Exception se o objeto for null ou se a fila estiver cheia
 	*/
-    public void guarde (X s) throws Exception
-    {
+    	public void guarde (X s) throws Exception
+    	{
 		if (s==null)
 			throw new Exception ("Informacao ausente");
 
 		if (this.isCheia())
 				throw new Exception ("Pilha cheia");
+        	if (s instanceof Cloneable)
+	        	this.vetor[this.qtd] = this.meuCloneDeX(s);  // vai dar pau; tem que contornar
+	    	else
+	        	this.vetor[this.qtd] = s;
+        	this.qtd++;
+	}
 
-        if (s instanceof Cloneable)
-	        this.vetor[this.qtd] = this.meuCloneDeX(s);  // vai dar pau; tem que contornar
-	    else
-	        this.vetor[this.qtd] = s;
+    	/**
+    	Obtém o último item da pilha
+    	@throws Exception se a pilha estiver vazia
+    	*/
+    	public X getUmItem () throws Exception
+    	{
+        	if (this.isVazia())
+        	    	throw new Exception ("Nada a recuperar");
+	        if (this.vetor[this.qtd-1] instanceof Cloneable)
+	            return this.meuCloneDeX((X)this.vetor[this.qtd-1]);
+        	return (X)this.vetor[this.qtd-1];
+    	}
 
-        this.qtd++;
-    }
-    /**
-    Obtém o último item da pilha
-    @throws Exception se a pilha estiver vazia
-    */
-    public X getUmItem () throws Exception
-    {
-        if (this.isVazia())
-            throw new Exception ("Nada a recuperar");
-
-        if (this.vetor[this.qtd-1] instanceof Cloneable)
-            return this.meuCloneDeX((X)this.vetor[this.qtd-1]);
-
-        return (X)this.vetor[this.qtd-1];
-
-    }
-    /**
-    Descarta do vetor o último item
-    @throws Exception se a pilha estiver vazia
-    */
-    public void jogueForaUmItem () throws Exception
-    {
+    	/**
+    	Descarta do vetor o último item
+    	@throws Exception se a pilha estiver vazia
+    	*/
+    	public void jogueForaUmItem () throws Exception
+    	{
 		if (this.isVazia())
 		{
 			Exception problema;
 	    	problema = new Exception ("Pilha vazia");
 	    	throw problema;
 		}
-        this.qtd--;
-        this.vetor[this.qtd]=null;
-    }
-    /**
-    Boolean que retorna se a pilha está cheia
-    @return se a quantidade de itens é igual ao tamanho do vetor
-    */
-    public boolean isCheia ()
-    {
-        return this.qtd==this.vetor.length;
-    }
-    /**
-    Boolean que retorna se a pilha está vazia
-    @return se a quantidade de itens é igual a 0
-    */
-    public boolean isVazia ()
-    {
-        return this.qtd==0;
-    }
+        	this.qtd--;
+        	this.vetor[this.qtd]=null;
+    	}
+
+    	/**
+    	Boolean que retorna se a pilha está cheia
+    	@return se a quantidade de itens é igual ao tamanho do vetor
+    	*/
+    	public boolean isCheia ()
+    	{
+        	return this.qtd==this.vetor.length;
+    	}
+
+    	/**
+    	Boolean que retorna se a pilha está vazia
+    	@return se a quantidade de itens é igual a 0
+    	*/
+    	public boolean isVazia ()
+    	{
+        	return this.qtd==0;
+    	}
+
 	/**
 	Transforma a pilha em string para ser exibida informando o número de elementos e qual é o último
 	@return retorna a Pilha em string informando o número de elementos e qual é o último
 	*/
-    public String toString ()
-    {
+    	public String toString ()
+    	{
 		if (this.qtd==0)
 		    return "Vazia";
 
@@ -174,10 +159,11 @@ public class Pilha<X> implements Cloneable
 
 		return true;
 	}
-    /**
-    Retorna o código de espalhamento(hash)
-    @return o código de hash
-    */
+
+    	/**
+    	Retorna o código de espalhamento(hash)
+    	@return o código de hash
+    	*/
 	public int hashCode ()
 	{
 		int ret=666; // so nao pode ser zero
@@ -207,12 +193,13 @@ public class Pilha<X> implements Cloneable
 		for (int i=0; i<=modelo.qtd; i++)
 		    this.vetor[i] = modelo.vetor[i];
 	}
-    /**
-    Cria e retorna uma cópia da instância chamante do método (this).
-    Utiliza o construtor de cópia para criar uma instância idêntica ao
-    this para então retorná-la.
-    para ser utilizada como modelo para a construção da nova instância
-    */
+
+    	/**
+    	Cria e retorna uma cópia da instância chamante do método (this).
+    	Utiliza o construtor de cópia para criar uma instância idêntica ao
+    	this para então retorná-la.
+    	para ser utilizada como modelo para a construção da nova instância
+    	*/
 	public Object clone ()
 	{
 		Pilha<X> ret=null;

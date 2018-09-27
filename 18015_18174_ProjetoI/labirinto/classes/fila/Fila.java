@@ -1,4 +1,4 @@
-package classes.fila;
+﻿package classes.fila;
 import java.lang.reflect.*;
 
 /**
@@ -31,9 +31,9 @@ public class Fila<X> implements Cloneable
 		//fazer: return (X)x.clone();
 		X ret = null;
 		try{
-			Class<?> classe = x.getClass(); //classe String é guardada dentro da vari�vel
-			Class<?>[] tiposDoParametroFormal; //parâmetro formal é declarado na hora de implementar um m�todo
-			tiposDoParametroFormal = null; //vetor nulo, porque clone n�o tem parâmetros
+			Class<?> classe = x.getClass();
+			Class<?>[] tiposDoParametroFormal;
+			tiposDoParametroFormal = null;
 			Method metodo = classe.getMethod("clone", tiposDoParametroFormal);
 			Object[] parametrosReais = null;
 			ret = (X)metodo.invoke(x, parametrosReais);
@@ -77,12 +77,12 @@ public class Fila<X> implements Cloneable
 	/**
 	* Guarda um objeto da classe X na última posição do vetor, aumentando a variável de quantidade de itens armazenados.
 	* @param o objeto da classe X a ser guardado.
-    * @throws Exception se o item a ser guardado for nulo e se a Fila estiver cheia.
+    	* @throws Exception se o item a ser guardado for nulo e se a Fila estiver cheia.
 	*/
 	public void guarde(X h) throws Exception
 	{
 		if (h == null)
-			throw new Exception("Hor�rio inv�lido!");
+			throw new Exception("Paarâametro inválido!");
 		if (this.isCheia())
 			throw new Exception("Fila cheia!");
 		if (h instanceof Cloneable)
@@ -105,8 +105,6 @@ public class Fila<X> implements Cloneable
 		//this.vetor[qtd] = null;
 		for(int i = 0; i < this.qtd; i++)
 			this.vetor[i] = this.vetor[i+1];
-			//"passinho"
-			//o que está além do qtd é considerado lixo
 	}
 
 	/**
@@ -143,10 +141,10 @@ public class Fila<X> implements Cloneable
 	}
 
 	/**
-    * Gera uma string com texto que representa a instância da fila.
-    * Retorna a quantidade de itens guardados e o primeiro item da fila.
-    * @return uma string com o conteúdo da fila.
-    */
+    	* Gera uma string com texto que representa a instância da fila.
+    	* Retorna a quantidade de itens guardados e o primeiro item da fila.
+    	* @return uma string com o conteúdo da fila.
+    	*/
 	public String toString()
 	{
 		if (this.isVazia())
