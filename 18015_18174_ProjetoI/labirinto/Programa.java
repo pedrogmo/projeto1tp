@@ -38,7 +38,7 @@ public class Programa
 			Labirinto lab = new Labirinto(matriz, linhas, colunas);
 			lab.procurarSaida();
 
-			System.out.println("Labirinto resolvido, saída em: " + lab.getSaida());
+			System.out.println("Labirinto resolvido, saÃ­da em: " + lab.getSaida());
 			System.out.print("Caminho: ");
 			Pilha<Coordenada> inverso = lab.getInversoDeCaminho();
 			while(!inverso.isVazia())
@@ -46,21 +46,11 @@ public class Programa
 				System.out.print(inverso.getUmItem() + " ");
 				inverso.jogueForaUmItem();
 			}
+			PrintStream resultado = new PrintStream();
 		}
 		catch (Exception erro)
 		{
 			System.err.println(erro.getMessage());
 		}
 	}
-
-	/*protected static void printaMatriz(char[][] m, int maxl, int maxc)
-	{
-		if (maxl * maxc < 1000) //só printa matriz se a quantidade de caracteres for menor que 1000, se não o programa não roda
-		for(int l = 0; l < maxl; l++)
-		{
-			for(int c = 0; c < maxc; c++)
-				System.out.print(m[l][c] + " ");
-			System.out.println();
-		}
-	}*/
 }
