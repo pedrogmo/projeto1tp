@@ -23,10 +23,10 @@ public class Coordenada
 	*/
 	public Coordenada(int l, int c) throws Exception
 	{
-	  if(l<0 || c<0)
-		  throw new Exception("Coordenada inválidas");
-	  this.linha = l;
-	  this.coluna = c;
+		if(l<0 || c<0)
+			throw new Exception("Coordenada inválida");
+	  	this.linha = l;
+	  	this.coluna = c;
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class Coordenada
 	*/
 	public int getLinha()
 	{
-	  return this.linha;
+		return this.linha;
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Coordenada
 	*/
 	public int getColuna()
 	{
-	  return this.coluna;
+		return this.coluna;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class Coordenada
 	*/
 	public String toString()
 	{
-	  return "(" + this.linha + "," + this.coluna + ")";
+		return "(" + this.linha + "," + this.coluna + ")";
 	}
 
 	/**
@@ -70,18 +70,18 @@ public class Coordenada
 		if (obj == null)
 			return false;
 
-	  if (this.getClass() != obj.getClass())
-		  return false;
+	  	if (this.getClass() != obj.getClass())
+		  	return false;
 
-	  Coordenada cor = (Coordenada)obj;
+	  	Coordenada cor = (Coordenada)obj;
 
-	  if (this.linha != cor.linha)
-		  return false;
+	  	if (this.linha != cor.linha)
+		 	 return false;
 
-	  if (this.coluna != cor.coluna)
-		  return false;
+	  	if (this.coluna != cor.coluna)
+			  return false;
 
-	  return true;
+	  	return true;
 	}
 
 	/**
@@ -90,12 +90,12 @@ public class Coordenada
 	*/
 	public int hashCode()
 	{
-	  int ret = 1;
+	 	 int ret = 1;
 
-	  ret = ret * 2 + new Integer(this.linha ).hashCode();
-	  ret = ret * 2 + new Integer(this.coluna).hashCode();
+	 	 ret = ret * 2 + new Integer(this.linha ).hashCode();
+	 	 ret = ret * 2 + new Integer(this.coluna).hashCode();
 
-	  return ret;
+	 	 return ret;
 	}
 
 	/**
@@ -108,20 +108,20 @@ public class Coordenada
 	*/
 	public int compareTo(Coordenada outra)
 	{
-	int ret = 0;
-	if (this.linha > outra.linha)
-		ret = 1;
-	else
-		if(this.linha < outra.linha)
-			ret = -1;
+		int ret = 0;
+		if (this.linha > outra.linha)
+			ret = 1;
 		else
-			if (this.coluna > outra.coluna)
-				ret = 1;
+			if(this.linha < outra.linha)
+				ret = -1;
 			else
-				if (this.coluna < outra.coluna)
-					ret = -1;
+				if (this.coluna > outra.coluna)
+					ret = 1;
 				else
-					ret = 0;
-	return ret;
+					if (this.coluna < outra.coluna)
+						ret = -1;
+					else
+						ret = 0;
+		return ret;
 	}
 }
