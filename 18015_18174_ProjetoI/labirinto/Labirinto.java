@@ -12,6 +12,7 @@ public class Labirinto
 	{
 		try
 		{
+			//leitura do arquivo
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
 			System.out.print("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
 			String localArquivo = teclado.readLine();
@@ -42,15 +43,15 @@ public class Labirinto
 				System.out.println();
 			}
 			arq.close();
-			if (atual == null)
+			if (atual == null)//se o valor de atual nao for alterado, nao achou a entrada
 				throw new Exception("Caractere 'E' do início do labirinto não econtrado.");
 			System.out.println("Comeco do labirinto: " + atual.toString());
 
 			Fila<Coordenada> fila = null; //fila de coordenadas armazenadas e possivelmente tomadas
 			//tres variaveis boolean para controle dos loops e dos desvios de codigo:
-			boolean acabou = false;
-			boolean passouRegressivo = false;
-			boolean sairRegressivo = false;
+			boolean acabou = false;//controle se achou a saida
+			boolean passouRegressivo = false;//controle se passou pelo modo regressivo
+			boolean sairRegressivo = false;//verifica se ja saiu do modo regressivo
 
 			do
 			{
@@ -104,7 +105,7 @@ public class Labirinto
 					else //nao e a saida, e so um espaco em branco. Tem que dar passo
 					{
 						matriz[lPasso][cPasso] = '*'; //dar passo
-						printaMatriz(matriz, linhas, colunas);
+						printaMatriz(matriz, linhas, colunas);//printa como o labirinto esta
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
 						//printa matriz a cada repeticao, para visualizacao
@@ -112,7 +113,7 @@ public class Labirinto
 				}
 				else //nao ha lugar para ir, modo regressivo
 				{
-					passouRegressivo = true;
+					passouRegressivo = true;// afirma que passou pelo regressivo
 					sairRegressivo = false;
 					do
 					{
@@ -125,7 +126,7 @@ public class Labirinto
 						fila = possibilidades.getUmItem(); //desempilha fila de possibilidades
 						possibilidades.jogueForaUmItem();
 						if (!fila.isVazia()) //fila anterior recuperada tem coordenadas para ir
-							sairRegressivo = true;
+							sairRegressivo = true;//afirma que saiu
 						if (possibilidades.isVazia()) //se se esgotaram as possibilidades
 							throw new Exception("Não foi possível resolver o labirinto");
 					}
