@@ -139,11 +139,32 @@ public class Labirinto implements Cloneable
 
 	public String toString()
 	{
-		// \r e \n
+		for (int c = 0; c < this.colunas; c++)
+			for (int l = 0; l < this.linhas; l++)
+			{
+
+			}
+
 	}
 
 	public boolean equals(Object obj)
 	{
+		if (this == obj)
+		    return true;
+
+		if (obj == null)
+		    return false;
+
+		if (this.getClass()!=obj.getClass())
+		    return false;
+
+		if (this.colunas != obj.colunas)
+		    return false;
+
+		if (this.linhas != obj.linhas)
+		   return false;
+
+		return true;
 
 	}
 
@@ -158,7 +179,7 @@ public class Labirinto implements Cloneable
 		throw new Exception ("Modelo ausente");
 
 		this.matriz = new Object(modelo.matriz.length, modelo.matriz[0].length);
-		this.caminho = new Object (modelo.colunas * modelo.linhas);
+		this.caminho = modelo.caminho.clone();
 		this.possibilidades = new Object (modelo.possibilidades.length);
 		this.atual = modelo.atual;
 		this.fila = new Object (modelo.fila.length);
