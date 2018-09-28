@@ -17,11 +17,10 @@ public class Programa
 	{
 		try
 		{			
-			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 			System.out.print("Digite o nome do arquivo a ser lido, mais sua extensao .txt: ");
-			String localArquivo = teclado.readLine();*/
-			String localArquivo = "teste5.txt";
-			BufferedReader arq = new BufferedReader(new FileReader("testes//" + localArquivo));
+			String localArquivo = teclado.readLine();
+			BufferedReader arq = new BufferedReader(new FileReader(localArquivo));
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
 			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas + "\n");
@@ -39,8 +38,7 @@ public class Programa
 			}
 			arq.close();
 			Labirinto lab = new Labirinto(matriz, linhas, colunas);
-			lab.procurarSaida();
-			
+			lab.procurarSaida();			
 			Coordenada saida = lab.getSaida();
 			System.out.println("Labirinto resolvido.");
 			System.out.print("Caminho: ");
@@ -50,9 +48,8 @@ public class Programa
 				System.out.print(inverso.getUmItem() + " ");
 				inverso.jogueForaUmItem();
 			}
-			System.out.println("\nSaida em: " + saida.toString());
-			
-			String arqSaida = "resultado//" + localArquivo.substring(0, localArquivo.length() - 4) + ".res.txt";
+			System.out.println("\nSaida em: " + saida.toString());			
+			String arqSaida = localArquivo.substring(0, localArquivo.length() - 4) + ".res.txt";
 			PrintStream resultado = new PrintStream(arqSaida);
 			resultado.println(lab.toString());
 			resultado.close();
