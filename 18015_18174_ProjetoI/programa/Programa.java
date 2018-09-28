@@ -17,10 +17,9 @@ public class Programa
 	{
 		try
 		{			
-			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 			System.out.print("Digite o local e o nome do arquivo a ser lido, mais sua extensao .txt: ");
-			String localArquivo = teclado.readLine();*/
-			String localArquivo = "testes//teste1.txt";
+			String localArquivo = teclado.readLine();			
 			BufferedReader arq = new BufferedReader(new FileReader(localArquivo));
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
@@ -31,11 +30,9 @@ public class Programa
 				String linha = arq.readLine();
 				for (int c = 0; c < colunas; c++)
 				{
-					char valoratual = linha.charAt(c);
-					//System.out.print(valoratual + " ");
+					char valoratual = linha.charAt(c);				
 					matriz[l][c] = valoratual;
 				}
-				//System.out.println();
 			}
 			arq.close();
 			Labirinto lab = new Labirinto(matriz, linhas, colunas);
