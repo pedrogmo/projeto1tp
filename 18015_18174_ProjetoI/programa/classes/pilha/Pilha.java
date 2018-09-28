@@ -1,5 +1,6 @@
 package classes.pilha;
 import java.lang.reflect.*;
+import java.lang.*;
 
 /**
 A classe Pilha permite empilhar e manusear objetos em um conceito first in, first out.

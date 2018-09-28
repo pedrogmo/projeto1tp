@@ -1,7 +1,7 @@
-package classes.labirinto;
 import classes.coordenada.*;
-import classes.pilha.*;
 import classes.fila.*;
+import classes.pilha.*;
+import java.lang.*;
 
 /**
 * A classe Labirinto, apresenta métodos para a resolução de um labirinto.
@@ -72,7 +72,7 @@ public class Labirinto implements Cloneable
 		this.achouSaida = false;
 		this.passouRegressivo = false;
 	}
-	
+
 	/**
      * Através do uso de procurarEntrada(), progressivo(),regressivo(),procurarAdjacentes(),haParaOndeIr() verifica o caminho a ser feito até a saída.
      * @throws Exception se possibilidades estiver vazia.
@@ -95,7 +95,7 @@ public class Labirinto implements Cloneable
 				this.regressivo();
 		}
 	}
-	
+
 	/**
      * Percorre o Labirinto a fim de encontrar a entrada.
      * @throws Exception se atual for null, ou seja não foi encontrada a entrada.
@@ -252,7 +252,7 @@ public class Labirinto implements Cloneable
 	/**
      * Verifica se o Labirinto atual é igual ao objeto passado por parâmetro.
      * Compara as classes do objeto, verifica a quantidade de linhas e colunas dos dois e os caracteres em cada posição.
-     * @return true se os Labirintos forem iguais, false caso contrário.	
+     * @return true se os Labirintos forem iguais, false caso contrário.
     */
 	public boolean equals(Object obj)
 	{
@@ -264,9 +264,9 @@ public class Labirinto implements Cloneable
 		    return false;
 
 		Labirinto labOutro = (Labirinto) obj;
-		
+
 		if (this.linhas != labOutro.linhas)
-		   	return false;	
+		   	return false;
 		if (this.colunas != labOutro.colunas)
 			return false;
 		if (!this.caminho.equals(labOutro.caminho))
@@ -276,7 +276,7 @@ public class Labirinto implements Cloneable
 		if (!this.fila.equals(labOutro.fila))
 			return false;
 		if (!this.atual.equals(labOutro.atual))
-			return false;		
+			return false;
 
 		for(int l = 0; l < this.linhas; l++)
 			for(int c  = 0; c < this.colunas; c++)
@@ -288,7 +288,7 @@ public class Labirinto implements Cloneable
 
 	/**
 	 * Gera o código de espalhamento (código de hash) da instância atual de Labirinto, que chama o método.
-	 * @return o código de espalhamento do Labirinto que chama o método.    
+	 * @return o código de espalhamento do Labirinto que chama o método.
     */
 	public int hashCode()
 	{
@@ -326,7 +326,7 @@ public class Labirinto implements Cloneable
 		for(int l = 0; l < this.linhas; l++)
 			for(int c  = 0; c < this.colunas; c++)
 				this.matriz[l][c] = new Character(modelo.matriz[l][c]);
-		this.caminho = (Pilha<Coordenda>) modelo.caminho.clone();
+		this.caminho = (Pilha<Coordenada>) modelo.caminho.clone();
 		this.possibilidades = (Pilha<Fila<Coordenada>>) modelo.possibilidades.clone();
 		this.atual = modelo.atual;
 		this.fila = (Fila<Coordenada>) modelo.fila.clone();
@@ -335,7 +335,7 @@ public class Labirinto implements Cloneable
 	}
 
 	/**
-	* Clona e retorna a instância atual de Labirinto. 
+	* Clona e retorna a instância atual de Labirinto.
 	* Instancia um novo Labirinto com o construtor de cópia, passando como parâmetro o Labirinto atual.
 	* @return o clone do labirinto que chama o método.
 	*/

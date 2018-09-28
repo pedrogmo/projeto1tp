@@ -1,15 +1,14 @@
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import classes.coordenada.Coordenada;
-import classes.pilha.Pilha;
-import classes.fila.Fila;
-import classes.labirinto.Labirinto;
+import classes.coordenada.*;
+import classes.pilha.*;
+import classes.fila.*;
+
 
 public class Programa
 {

@@ -1,4 +1,5 @@
 package classes.coordenada;
+import java.lang.*;
 
 /**
 * A classe Coordenada representa uma simples coordenada com inteiros linha e coluna, que indicam a posição em uma matriz.

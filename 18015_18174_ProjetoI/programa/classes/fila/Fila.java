@@ -1,5 +1,6 @@
 package classes.fila;
 import java.lang.reflect.*;
+import java.lang.*;
 
 /**
 * A classe Fila representa uma fila, que tem como base um vetor genérico interno e um inteiro indicador de quantidade de itens.
