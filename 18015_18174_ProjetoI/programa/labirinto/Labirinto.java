@@ -1,3 +1,4 @@
+package labirinto;
 import classes.coordenada.*;
 import classes.fila.*;
 import classes.pilha.*;
@@ -239,12 +240,12 @@ public class Labirinto implements Cloneable
     */
 	public String toString()
 	{
-		String ret = "";
+		String ret = " ";
 		for (int l = 0; l < this.linhas; l++)
 		{
 			for (int c = 0; c < this.colunas; c++)
-				ret += this.matriz[l][c] + " ";
-			ret += "\r\n";
+				ret = ret + this.matriz[l][c] + "";
+			ret = ret + "\r\n";
 		}
 		return ret;
 	}

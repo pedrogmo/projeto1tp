@@ -8,7 +8,7 @@ import java.io.IOException;
 import classes.coordenada.*;
 import classes.pilha.*;
 import classes.fila.*;
-
+import labirinto.*;
 
 public class Programa
 {
