@@ -79,18 +79,20 @@ public class Labirinto implements Cloneable
     */
 	public void procurarSaida() throws Exception
 	{
-		procurarEntrada();
+		if (this.achouSaida)
+			throw new Exception("Saida do labirinto ja encontrada");
+		this.procurarEntrada();
 		while(!this.achouSaida)
 		{
 			if (!this.passouRegressivo)
-				procurarAdjacentes();
+				this.procurarAdjacentes();
 			else
 				this.passouRegressivo = false;
 
-			if (haParaOndeIr())
-				progressivo();
+			if (this.haParaOndeIr())
+				this.progressivo();
 			else
-				regressivo();
+				this.regressivo();
 		}
 	}
 	
@@ -146,7 +148,7 @@ public class Labirinto implements Cloneable
 			this.matriz[this.atual.getLinha()][this.atual.getColuna()] = ' ';
 			this.fila = this.possibilidades.getUmItem(); //desempilha fila de possibilidades
 			this.possibilidades.jogueForaUmItem();
-			if (haParaOndeIr())
+			if (this.haParaOndeIr())
 				sairRegressivo = true;//afirma que saiu
 			if (this.possibilidades.isVazia())
 				throw new Exception("Não foi possível resolver o labirinto");
@@ -155,20 +157,37 @@ public class Labirinto implements Cloneable
 	}
 
 	/**
-     * Ordena Pilha de coordenadas de forma que o caminho é do primeiro ao último passo.
+     * Retorna uma String com o caminho do labirinto, do primeiro ao último passo, sem contar a saída.
+	 * @return a string com todas as posições tomadas para resolver o labirinto.
 	 * @throws Exception se o labirinto ainda não tiver sido concluído.
     */
-	public Pilha<Coordenada> getInversoDeCaminho() throws Exception
+	public String getCaminhoFinal() throws Exception
 	{
 		if (!this.achouSaida)
 			throw new Exception("Labirinto ainda não foi finalizado");
-		Pilha<Coordenada> ret = new Pilha<Coordenada>(this.colunas * this.linhas);
-		while (!this.caminho.isVazia())
+		this.inverterCaminho();
+		String ret = "";
+		while(!this.caminho.isVazia())
 		{
-			ret.guarde(this.caminho.getUmItem());
+			ret += this.caminho.getUmItem().toString() + " ";
 			this.caminho.jogueForaUmItem();
 		}
 		return ret;
+	}
+
+	/**
+	 * Inverte o caminho para ele ficar ordenado, e ser eventualmente retornado em forma de String no método getCaminhoFinal().
+	 * @throws Exception se algum objeto eventualmente também jogar exceção.
+	*/
+	protected void inverterCaminho() throws Exception
+	{
+		Pilha<Coordenada> aux = (Pilha<Coordenada>) this.caminho.clone();
+		this.caminho = new Pilha<Coordenada>(this.linhas * this.colunas);
+		while (!aux.isVazia())
+		{
+			this.caminho.guarde(aux.getUmItem());
+			aux.jogueForaUmItem();
+		}
 	}
 
 	/**
@@ -307,10 +326,10 @@ public class Labirinto implements Cloneable
 		for(int l = 0; l < this.linhas; l++)
 			for(int c  = 0; c < this.colunas; c++)
 				this.matriz[l][c] = new Character(modelo.matriz[l][c]);
-		this.caminho = modelo.caminho.clone();
-		this.possibilidades = modelo.possibilidades.clone();
+		this.caminho = (Pilha<Coordenda>) modelo.caminho.clone();
+		this.possibilidades = (Pilha<Fila<Coordenada>>) modelo.possibilidades.clone();
 		this.atual = modelo.atual;
-		this.fila = modelo.fila.clone();
+		this.fila = (Fila<Coordenada>) modelo.fila.clone();
 		this.achouSaida = new Boolean(modelo.achouSaida);
 		this.passouRegressivo = new Boolean(modelo.passouRegressivo);
 	}

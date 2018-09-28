@@ -17,13 +17,14 @@ public class Programa
 	{
 		try
 		{			
-			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-			System.out.print("Digite o nome do arquivo a ser lido, mais sua extensao .txt: ");
-			String localArquivo = teclado.readLine();
+			/*BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Digite o local e o nome do arquivo a ser lido, mais sua extensao .txt: ");
+			String localArquivo = teclado.readLine();*/
+			String localArquivo = "testes//teste1.txt";
 			BufferedReader arq = new BufferedReader(new FileReader(localArquivo));
 			int linhas = Integer.parseInt(arq.readLine().trim());
 			int colunas = Integer.parseInt(arq.readLine().trim());
-			System.out.println("Linhas: " + linhas + "\nColunas: " + colunas + "\n");
+			System.out.println("\nLinhas: " + linhas + "\nColunas: " + colunas + "\n");
 			char[][] matriz = new char[linhas][colunas];
 			for (int l = 0; l < linhas; l++)
 			{
@@ -31,24 +32,18 @@ public class Programa
 				for (int c = 0; c < colunas; c++)
 				{
 					char valoratual = linha.charAt(c);
-					System.out.print(valoratual + " ");
+					//System.out.print(valoratual + " ");
 					matriz[l][c] = valoratual;
 				}
-				System.out.println();
+				//System.out.println();
 			}
 			arq.close();
 			Labirinto lab = new Labirinto(matriz, linhas, colunas);
 			lab.procurarSaida();			
 			Coordenada saida = lab.getSaida();
 			System.out.println("Labirinto resolvido.");
-			System.out.print("Caminho: ");
-			Pilha<Coordenada> inverso = lab.getInversoDeCaminho();
-			while(!inverso.isVazia())
-			{
-				System.out.print(inverso.getUmItem() + " ");
-				inverso.jogueForaUmItem();
-			}
-			System.out.println("\nSaida em: " + saida.toString());			
+			System.out.println("Caminho: " + lab.getCaminhoFinal());
+			System.out.println("Saida em: " + saida.toString());			
 			String arqSaida = localArquivo.substring(0, localArquivo.length() - 4) + ".res.txt";
 			PrintStream resultado = new PrintStream(arqSaida);
 			resultado.println(lab.toString());
